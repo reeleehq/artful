@@ -190,7 +190,7 @@ PINNED: dict[str, dict] = {
         "required": frozenset(),
         "fields": {
             "artifact_id": "string|null = null",
-            "asset_id": "string|null = null",
+            "asset_id": 'string|null(x-derived="artifact_id") = null',  # additive marker (lacing.Derived); same wire shape
             "url": "string|null = null",
             "path": "string|null = null",
             "role": 'string = "thumbnail"',
