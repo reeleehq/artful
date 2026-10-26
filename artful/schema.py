@@ -425,8 +425,9 @@ class ModelSheet(BaseModel):
         default_factory=dict,
         description=(
             "Map of canonical view → image url (what the producing Transform "
-            "stores, and what consumers read back as a url). Not every view "
-            "is required for v1; the Transform fills the views it can hit."
+            'stores, and what consumers read back as a url; ``""`` if the '
+            "render returned none). Not every view is required for v1; the "
+            "Transform fills the views it can hit."
         ),
     )
     expression_set: dict[str, str] = Field(
