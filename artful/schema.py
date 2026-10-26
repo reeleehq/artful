@@ -33,7 +33,7 @@ from typing import Annotated, Literal, Optional, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from lacing import Location, register_body_schema
+from lacing import Derived, Location, register_body_schema
 
 
 ReviewStatus = Literal[
@@ -145,12 +145,14 @@ class PanelImage(BaseModel):
     artifact_id: Optional[str] = Field(
         None,
         description=(
-            "SHA-256 content hash of the image bytes (matches "
-            "`lacing.Artifact.asset_id`). Preferred over `url` / `path` for "
-            "cross-machine identity."
+            "Catalog id of the image (the artifact catalog's own id); the SHA-256 "
+            "content hash of its bytes is `asset_id`, derived from this once the "
+            "bytes are ingested. Preferred over `url` / `path` for cross-machine "
+            "identity. `asset_id` is only derivable (and so left out of the value "
+            "digest) when this is set."
         ),
     )
-    asset_id: Optional[str] = Field(
+    asset_id: Annotated[Optional[str], Derived("artifact_id")] = Field(
         None,
         description=(
             "SHA-256 content hash of the image bytes, when known: derivable from "
