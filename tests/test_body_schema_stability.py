@@ -328,8 +328,10 @@ def test_new_fields_are_additive_and_pinned(model_name):
 # ``key=value`` rather than dropped, so an unanticipated keyword still shows
 # up in the failure diff instead of slipping through unpinned.
 
-#: Prose, not contract — a reworded docstring must not fail the guard.
-PROSE_KEYS = frozenset({"title", "description"})
+#: Prose and metadata, not contract — a reworded docstring, or a field marked
+#: with ``lacing.Location`` (``x-location``; pinned by its own test below), must
+#: not fail the guard: neither changes what is stored.
+PROSE_KEYS = frozenset({"title", "description", "x-location"})
 
 
 def _actual_shapes() -> dict[str, dict]:
@@ -392,3 +394,31 @@ def _with_extras(base: str, extras: dict) -> str:
         f"{k}={json.dumps(v, sort_keys=True)}" for k, v in sorted(extras.items())
     )
     return f"{base}({tail})"
+
+
+#: Which fields of each owned body hold a location (``lacing.Location``,
+#: ``x-location``). Not in the shape pins above, but still a contract: redaction,
+#: edit guards and write gates read it, so adding, removing or flipping a marker
+#: is a deliberate change.
+LOCATIONS = {
+    "annot://schema/storyboard-panel/v1": {},
+    "annot://schema/shot-schedule/v1": {},
+    "annot://schema/model-sheet/v1": {
+        name: "url"
+        for name in (
+            "canonical_views",
+            "expression_set",
+            "costume_set",
+            "age_progression",
+            "prop_interactions",
+        )
+    },
+    "annot://schema/storyboard-meta/v1": {},
+}
+
+
+@pytest.mark.parametrize("uri", sorted(LOCATIONS))
+def test_location_markers_are_pinned(uri):
+    from lacing import location_fields
+
+    assert location_fields(OWNED[uri]) == LOCATIONS[uri]

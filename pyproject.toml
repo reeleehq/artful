@@ -16,7 +16,7 @@ authors = [
 ]
 dependencies = [
     "pydantic>=2.6",
-    "lacing>=0.0.13",
+    "lacing>=0.0.56",
 ]
 
 [project.license]
