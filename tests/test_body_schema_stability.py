@@ -328,8 +328,10 @@ def test_new_fields_are_additive_and_pinned(model_name):
 # ``key=value`` rather than dropped, so an unanticipated keyword still shows
 # up in the failure diff instead of slipping through unpinned.
 
-#: Prose, not contract — a reworded docstring must not fail the guard.
-PROSE_KEYS = frozenset({"title", "description"})
+#: Prose and metadata, not contract — a reworded docstring, or a field marked
+#: with ``lacing.Location`` (``x-location``; pinned by its own test below), must
+#: not fail the guard: neither changes what is stored.
+PROSE_KEYS = frozenset({"title", "description", "x-location"})
 
 
 def _actual_shapes() -> dict[str, dict]:
@@ -392,3 +394,22 @@ def _with_extras(base: str, extras: dict) -> str:
         f"{k}={json.dumps(v, sort_keys=True)}" for k, v in sorted(extras.items())
     )
     return f"{base}({tail})"
+
+
+def test_model_sheet_locations_are_marked():
+    """The sibling maps hold image urls (as ``canonical_views``): the schema says
+    so, so consumers (redaction, write gates) need not guess from key names."""
+    from lacing import location_fields
+
+    from artful.schema import ModelSheet
+
+    assert location_fields(ModelSheet) == {
+        name: "url"
+        for name in (
+            "canonical_views",
+            "expression_set",
+            "costume_set",
+            "age_progression",
+            "prop_interactions",
+        )
+    }

@@ -29,11 +29,11 @@ plan that drives the renderer. Use cases:
 from __future__ import annotations
 
 import uuid as _uuid
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from lacing import register_body_schema
+from lacing import Location, register_body_schema
 
 
 ReviewStatus = Literal[
@@ -421,7 +421,7 @@ class ModelSheet(BaseModel):
     sheet_id: str = Field(
         ..., description="Stable id within the project (e.g. 'ms-001')."
     )
-    canonical_views: dict[ModelSheetView, str] = Field(
+    canonical_views: Annotated[dict[ModelSheetView, str], Location("url")] = Field(
         default_factory=dict,
         description=(
             "Map of canonical view → image url (what the producing Transform "
@@ -430,16 +430,16 @@ class ModelSheet(BaseModel):
             "Transform fills the views it can hit."
         ),
     )
-    expression_set: dict[str, str] = Field(
+    expression_set: Annotated[dict[str, str], Location("url")] = Field(
         default_factory=dict,
         description=(
-            "Map of expression label (e.g. 'joy', 'fear', 'neutral') → "
-            "``render-result`` annotation id."
+            "Map of expression label (e.g. 'joy', 'fear', 'neutral') → image "
+            'url, as ``canonical_views`` (``""`` if the render returned none).'
         ),
     )
-    costume_set: dict[str, str] = Field(
+    costume_set: Annotated[dict[str, str], Location("url")] = Field(
         default_factory=dict,
-        description="Map of costume label → ``render-result`` annotation id.",
+        description="Map of costume label → image url, as ``canonical_views``.",
     )
     palette_anchors: tuple[str, ...] = Field(
         default_factory=tuple,
@@ -465,16 +465,16 @@ class ModelSheet(BaseModel):
         default_factory=tuple,
         description="Negative-prompt directives, character-scoped (spec §7.4).",
     )
-    age_progression: dict[str, str] = Field(
+    age_progression: Annotated[dict[str, str], Location("url")] = Field(
         default_factory=dict,
         description=(
-            "Map of age label (e.g. 'child', 'elder') → ``render-result`` "
-            "annotation id. Optional."
+            "Map of age label (e.g. 'child', 'elder') → image url, as "
+            "``canonical_views``. Optional."
         ),
     )
-    prop_interactions: dict[str, str] = Field(
+    prop_interactions: Annotated[dict[str, str], Location("url")] = Field(
         default_factory=dict,
-        description="Map of prop id → ``render-result`` annotation id.",
+        description="Map of prop id → image url, as ``canonical_views``.",
     )
     voice_personality_notes: Optional[str] = Field(
         None,
