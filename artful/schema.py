@@ -424,9 +424,10 @@ class ModelSheet(BaseModel):
     canonical_views: dict[ModelSheetView, str] = Field(
         default_factory=dict,
         description=(
-            "Map of canonical view → ``render-result`` annotation id. Not "
-            "every view is required for v1; the producing Transform fills "
-            "the views it can hit."
+            "Map of canonical view → image url (what the producing Transform "
+            'stores, and what consumers read back as a url; ``""`` if the '
+            "render returned none). Not every view is required for v1; the "
+            "Transform fills the views it can hit."
         ),
     )
     expression_set: dict[str, str] = Field(
