@@ -49,7 +49,7 @@ plan that drives the renderer. Use cases:
 | [`ModelSheet`](#artful.schema.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
 |------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | [`PanelBody`](#artful.schema.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](#artful.schema.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`PanelImage`](#artful.schema.PanelImage)(\*[, artifact_id, asset_id, url, ...])   | One image associated with a panel.                                                                                    |
 | [`Storyboard`](#artful.schema.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
 
 ### artful.schema.Angle
@@ -125,7 +125,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.schema.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
+### *class* artful.schema.PanelImage(, artifact_id=None, asset_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 

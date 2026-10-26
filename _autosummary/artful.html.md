@@ -51,7 +51,7 @@ Public surface:
 | [`ModelSheet`](#artful.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
 |------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | [`PanelBody`](#artful.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](#artful.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`PanelImage`](#artful.PanelImage)(\*[, artifact_id, asset_id, url, ...])   | One image associated with a panel.                                                                                    |
 | [`RiskFlag`](#artful.RiskFlag)(\*, code[, message, severity, gotcha_id])  | One advisory warning attached to a shot (or to the whole schedule).                                                   |
 | [`ShotEntry`](#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
 | [`ShotScheduleBody`](#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
@@ -91,7 +91,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
+### *class* artful.PanelImage(, artifact_id=None, asset_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 

@@ -1,4 +1,4 @@
-> built 2026-10-26 18:33 UTC from 4b90b08 (main) · artful 0.0.15. Details: build_info.json
+> built 2026-10-26 19:49 UTC from fd010cc (main) · artful 0.0.16. Details: build_info.json
 
 # index.html.md
 
@@ -393,7 +393,7 @@ Public surface:
 | [`ModelSheet`](_autosummary/artful.html.md#artful.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
 |------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | [`PanelBody`](_autosummary/artful.html.md#artful.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](_autosummary/artful.html.md#artful.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`PanelImage`](_autosummary/artful.html.md#artful.PanelImage)(\*[, artifact_id, asset_id, url, ...])   | One image associated with a panel.                                                                                    |
 | [`RiskFlag`](_autosummary/artful.html.md#artful.RiskFlag)(\*, code[, message, severity, gotcha_id])  | One advisory warning attached to a shot (or to the whole schedule).                                                   |
 | [`ShotEntry`](_autosummary/artful.html.md#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
 | [`ShotScheduleBody`](_autosummary/artful.html.md#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
@@ -433,7 +433,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
+### *class* artful.PanelImage(, artifact_id=None, asset_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -720,7 +720,7 @@ plan that drives the renderer. Use cases:
 | [`ModelSheet`](_autosummary/artful.schema.html.md#artful.schema.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
 |------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | [`PanelBody`](_autosummary/artful.schema.html.md#artful.schema.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](_autosummary/artful.schema.html.md#artful.schema.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`PanelImage`](_autosummary/artful.schema.html.md#artful.schema.PanelImage)(\*[, artifact_id, asset_id, url, ...])   | One image associated with a panel.                                                                                    |
 | [`Storyboard`](_autosummary/artful.schema.html.md#artful.schema.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
 
 ### artful.schema.Angle
@@ -796,7 +796,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.schema.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
+### *class* artful.schema.PanelImage(, artifact_id=None, asset_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -1155,7 +1155,7 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-10-26 18:33 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b08</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-26 19:49 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/fd010cc5fe10052de7095028049693cf929be94e"><code>fd010cc</code></a> on branch <code>main</code>, for **artful 0.0.16** (from <code>pyproject.toml</code>).
 
 #### NOTE
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -1164,7 +1164,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/fd010cc5fe10052de7095028049693cf929be94e"><code>fd010cc5fe10052de7095028049693cf929be94e</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -1175,9 +1175,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40378548919">40378548919</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40389938396">40389938396</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code> (in the history of the built commit) |
+| Event commit | <code>fd010cc5fe10052de7095028049693cf929be94e</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -1202,13 +1202,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.15/">0.0.15</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/artful/0.0.16/">0.0.16</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 4b90b084dcf7641bdae6dc83f1feb58d186c20d9
+git checkout fd010cc5fe10052de7095028049693cf929be94e
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

@@ -13,7 +13,7 @@
 - [artful.shot_schedule](_autosummary/artful.shot_schedule.html.md): Shot schedule — an ordered, model-constraint-aware shot list.
 - [artful.store](_autosummary/artful.store.html.md): Round-trip a &#96;Storyboard&#96; through a lacing store.
 - [For AI agents](ai-agents.html.md): &#96;artful&#96; ships artifacts for coding agents alongside its code. This page lists
-- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-10-26 18:33 UTC&#42;&#42; from commit &lt;a href="https://github.com/ree...
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-10-26 19:49 UTC&#42;&#42; from commit &lt;a href="https://github.com/ree...
 
 ## Optional
 
