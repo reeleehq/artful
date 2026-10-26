@@ -48,17 +48,17 @@ Public surface:
 
 ### Classes
 
-| [`ModelSheet`](#artful.ModelSheet)(\*\*data)         | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
-|-------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`PanelBody`](#artful.PanelBody)(\*\*data)          | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](#artful.PanelImage)(\*\*data)         | One image associated with a panel.                                                                                    |
-| [`RiskFlag`](#artful.RiskFlag)(\*\*data)           | One advisory warning attached to a shot (or to the whole schedule).                                                   |
-| [`ShotEntry`](#artful.ShotEntry)(\*\*data)          | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
-| [`ShotScheduleBody`](#artful.ShotScheduleBody)(\*\*data)   | The body of a shot-schedule annotation — the ordered shot list.                                                       |
-| [`Storyboard`](#artful.Storyboard)(\*\*data)         | A typed view over a sequence of panel annotations.                                                                    |
-| [`StoryboardMetaBody`](#artful.StoryboardMetaBody)(\*\*data) |                                                                                                                       |
+| [`ModelSheet`](#artful.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
+|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`PanelBody`](#artful.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
+| [`PanelImage`](#artful.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`RiskFlag`](#artful.RiskFlag)(\*, code[, message, severity, gotcha_id])  | One advisory warning attached to a shot (or to the whole schedule).                                                   |
+| [`ShotEntry`](#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
+| [`ShotScheduleBody`](#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
+| [`Storyboard`](#artful.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
+| [`StoryboardMetaBody`](#artful.StoryboardMetaBody)(\*[, title, style, aspect])      |                                                                                                                       |
 
-### *class* artful.ModelSheet(\*\*data)
+### *class* artful.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
 
@@ -74,7 +74,7 @@ and the inspector surfaces them alongside the panels they conditioned.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelBody(\*\*data)
+### *class* artful.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
 
@@ -91,7 +91,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelImage(\*\*data)
+### *class* artful.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -106,7 +106,7 @@ from “this is the seed image for the renderer.”
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.RiskFlag(\*\*data)
+### *class* artful.RiskFlag(, code, message='', severity='warn', gotcha_id=None)
 
 Bases: `BaseModel`
 
@@ -121,7 +121,7 @@ changing the model — [`ShotScheduleBody.needs_advice`](#artful.ShotScheduleBod
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.ShotEntry(\*\*data)
+### *class* artful.ShotEntry(\*, shot_id, panel_id=None, beat_id=None, description='', characters=<factory>, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, max_duration_seconds=None, max_characters_in_frame=None, aspect=None, resolution=None, allow_last_frame_anchor=False, has_dialogue=False, has_action=False, take_budget=None, clump_id=None, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -134,7 +134,7 @@ there is deliberately no `order` field to disagree with it.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.ShotScheduleBody(\*\*data)
+### *class* artful.ShotScheduleBody(\*, schedule_id, title='', model_id=None, advised_for_model_id=None, aspect='16:9', resolution=None, shots=<factory>, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -163,7 +163,7 @@ The entry with `shot_id`, or None. Mirrors `Storyboard.panel`.
 * **Return type:**
   [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ShotEntry`](artful.shot_schedule.html.md#artful.shot_schedule.ShotEntry)]
 
-### *class* artful.Storyboard(\*\*data)
+### *class* artful.Storyboard(\*, title='', asset_id, panels=<factory>, style='', aspect='16:9')
 
 Bases: `BaseModel`
 
@@ -177,7 +177,7 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.StoryboardMetaBody(\*\*data)
+### *class* artful.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
 

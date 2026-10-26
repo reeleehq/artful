@@ -55,10 +55,10 @@ panel exists.
 
 ### Classes
 
-| [`RiskFlag`](#artful.shot_schedule.RiskFlag)(\*\*data)         | One advisory warning attached to a shot (or to the whole schedule).   |
-|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [`ShotEntry`](#artful.shot_schedule.ShotEntry)(\*\*data)        | One row of a shot schedule: what to shoot, and what bounds it.        |
-| [`ShotScheduleBody`](#artful.shot_schedule.ShotScheduleBody)(\*\*data) | The body of a shot-schedule annotation — the ordered shot list.       |
+| [`RiskFlag`](#artful.shot_schedule.RiskFlag)(\*, code[, message, severity, gotcha_id])   | One advisory warning attached to a shot (or to the whole schedule).   |
+|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| [`ShotEntry`](#artful.shot_schedule.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])     | One row of a shot schedule: what to shoot, and what bounds it.        |
+| [`ShotScheduleBody`](#artful.shot_schedule.ShotScheduleBody)(\*, schedule_id[, title, ...])      | The body of a shot-schedule annotation — the ordered shot list.       |
 
 ### artful.shot_schedule.RiskCode
 
@@ -77,7 +77,7 @@ schema change, made deliberately.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘over_clip_cap’, ‘multi_character’, ‘first_last_frame’, ‘dialogue_plus_action’, ‘over_take_budget’, ‘unsupported_resolution’, ‘mixed_aspect_ratios’]
 
-### *class* artful.shot_schedule.RiskFlag(\*\*data)
+### *class* artful.shot_schedule.RiskFlag(, code, message='', severity='warn', gotcha_id=None)
 
 Bases: `BaseModel`
 
@@ -103,7 +103,7 @@ alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Litera
 Default lacing tier for persisted schedules — so several schedules over
 one asset (a draft and a revision, say) stay distinguishable by tier.
 
-### *class* artful.shot_schedule.ShotEntry(\*\*data)
+### *class* artful.shot_schedule.ShotEntry(\*, shot_id, panel_id=None, beat_id=None, description='', characters=<factory>, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, max_duration_seconds=None, max_characters_in_frame=None, aspect=None, resolution=None, allow_last_frame_anchor=False, has_dialogue=False, has_action=False, take_budget=None, clump_id=None, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -116,7 +116,7 @@ there is deliberately no `order` field to disagree with it.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.shot_schedule.ShotScheduleBody(\*\*data)
+### *class* artful.shot_schedule.ShotScheduleBody(\*, schedule_id, title='', model_id=None, advised_for_model_id=None, aspect='16:9', resolution=None, shots=<factory>, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 

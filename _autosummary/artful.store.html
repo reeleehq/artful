@@ -9,10 +9,11 @@
 <link rel="alternate" type="text/markdown" href="artful.store.html.md">
 <link rel="describedby" href="llms.txt"><link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="For AI agents" href="../ai-agents.html"><link rel="prev" title="artful.shot_schedule" href="artful.shot_schedule.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>artful.store - artful</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -295,7 +296,7 @@ unchanged. Apps add storyboard semantics by reading panels via
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#artful.store.StoryboardMetaBody" title="artful.store.StoryboardMetaBody"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code></a>(**data)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artful.store.StoryboardMetaBody" title="artful.store.StoryboardMetaBody"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code></a>(*[, title, style, aspect])</p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -303,13 +304,13 @@ unchanged. Apps add storyboard semantics by reading panels via
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="artful.store.StoryboardMetaBody">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">artful.store.</span></span><span class="sig-name descname"><span class="pre">StoryboardMetaBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/store.html#StoryboardMetaBody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.store.StoryboardMetaBody" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">artful.store.</span></span><span class="sig-name descname"><span class="pre">StoryboardMetaBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'16:9'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/store.html#StoryboardMetaBody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.store.StoryboardMetaBody" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="artful.store.StoryboardMetaBody.model_config">
-<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'frozen':</span> <span class="pre">True}</span></span><a class="headerlink" href="#artful.store.StoryboardMetaBody.model_config" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.15)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'forbid',</span> <span class="pre">'frozen':</span> <span class="pre">True}</span></span><a class="headerlink" href="#artful.store.StoryboardMetaBody.model_config" title="Link to this definition">¶</a></dt>
 <dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
@@ -350,7 +351,7 @@ shared by <a class="reference internal" href="#module-artful.store" title="artfu
 dict keyed by panel_id with TimeInterval values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TimeInterval</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TimeInterval</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -364,19 +365,19 @@ dict keyed by panel_id with TimeInterval values.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>storyboard</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="artful.schema.html#artful.schema.Storyboard" title="artful.schema.Storyboard"><code class="xref py py-class docutils literal notranslate"><span class="pre">Storyboard</span></code></a></span>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Storyboard</span></code> to persist.</p></li>
 <li><p><strong>store</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">IntervalAnnotationStore</span></code></span>) – A lacing store (any <code class="xref py py-class docutils literal notranslate"><span class="pre">IntervalAnnotationStore</span></code>).</p></li>
-<li><p><strong>panel_intervals</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TimeInterval</span></code>]</span>) – Per-panel-id mapping to a <code class="xref py py-class docutils literal notranslate"><span class="pre">lacing.TimeInterval</span></code>.
+<li><p><strong>panel_intervals</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TimeInterval</span></code>]</span>) – Per-panel-id mapping to a <code class="xref py py-class docutils literal notranslate"><span class="pre">lacing.TimeInterval</span></code>.
 Required because <code class="xref py py-class docutils literal notranslate"><span class="pre">PanelBody</span></code> itself does not carry the
 interval (it lives on the annotation’s reference); the caller must
 tell us which time span each panel covers.</p></li>
-<li><p><strong>tier</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Tier name for the persisted annotations. Defaults to
+<li><p><strong>tier</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Tier name for the persisted annotations. Defaults to
 <code class="docutils literal notranslate"><span class="pre">&quot;storyboard&quot;</span></code> so multiple storyboards over the same asset can
 be distinguished by tier.</p></li>
-<li><p><strong>was_generated_by</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Provenance fields applied to
+<li><p><strong>was_generated_by</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>) – Provenance fields applied to
 every persisted annotation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Annotation</span></code>]</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Annotation</span></code>]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of persisted <code class="xref py py-class docutils literal notranslate"><span class="pre">Annotation</span></code> instances (panels, then meta).</p>
@@ -457,7 +458,7 @@ every persisted annotation.</p></li>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=6b09a97f"></script>
+</div><script src="../_static/documentation_options.js?v=2a6a9ca9"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

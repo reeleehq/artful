@@ -1,39 +1,41 @@
 {
   "schema_version": 1,
-  "built_at": "2026-10-03T07:50:15Z",
+  "built_at": "2026-10-26T15:16:52Z",
   "package": {
     "name": "artful",
-    "version": "0.0.13",
+    "version": "0.0.15",
     "display_name": "artful",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "387f2186eb76afa1cddc813cdb469484e9d5bbed",
-    "short_commit": "387f218",
+    "commit": "21f230e70ad9d8e17e0a05ea9a32c1cfea050c60",
+    "short_commit": "21f230e",
     "branch": "main",
-    "tags": [],
+    "tags": [
+      "0.0.15"
+    ],
     "dirty": false,
-    "remote_url": "https://github.com/thorwhalen/artful",
-    "commit_url": "https://github.com/thorwhalen/artful/commit/387f2186eb76afa1cddc813cdb469484e9d5bbed",
+    "remote_url": "https://github.com/reeleehq/artful",
+    "commit_url": "https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60",
     "error": null
   },
   "ci": {
     "provider": "github",
-    "repository": "thorwhalen/artful",
-    "sha": "387f2186eb76afa1cddc813cdb469484e9d5bbed",
+    "repository": "reeleehq/artful",
+    "sha": "7e4f1f0176e597c1ffce134c4fafed1224828ef2",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "37107587944",
-    "run_url": "https://github.com/thorwhalen/artful/actions/runs/37107587944",
+    "run_id": "40347284751",
+    "run_url": "https://github.com/reeleehq/artful/actions/runs/40347284751",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.12",
-    "sphinx": "9.1.0",
+    "epythet": "0.2.22",
+    "sphinx": "9.1.1",
     "docutils": "0.22.4",
-    "python": "3.12.14"
+    "python": "3.12.15"
   },
   "config": {
     "theme": "auto",
@@ -60,16 +62,14 @@
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.14",
-    "relation": "behind",
+    "latest": "0.0.15",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/thorwhalen/artful && cd artful\ngit checkout 387f2186eb76afa1cddc813cdb469484e9d5bbed\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout 21f230e70ad9d8e17e0a05ea9a32c1cfea050c60\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install artful` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }

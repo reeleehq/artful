@@ -46,11 +46,11 @@ plan that drives the renderer. Use cases:
 
 ### Classes
 
-| [`ModelSheet`](#artful.schema.ModelSheet)(\*\*data)   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
-|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`PanelBody`](#artful.schema.PanelBody)(\*\*data)    | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](#artful.schema.PanelImage)(\*\*data)   | One image associated with a panel.                                                                                    |
-| [`Storyboard`](#artful.schema.Storyboard)(\*\*data)   | A typed view over a sequence of panel annotations.                                                                    |
+| [`ModelSheet`](#artful.schema.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
+|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`PanelBody`](#artful.schema.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
+| [`PanelImage`](#artful.schema.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`Storyboard`](#artful.schema.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
 
 ### artful.schema.Angle
 
@@ -66,7 +66,7 @@ indicates the user overrode the estimate.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘estimate’, ‘from_voiceover’, ‘from_clip’, ‘manual’]
 
-### *class* artful.schema.ModelSheet(\*\*data)
+### *class* artful.schema.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
 
@@ -108,7 +108,7 @@ Spec §6.3 movement taxonomy. `LOCKED` is the default in practice.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘LOCKED’, ‘PAN’, ‘TILT’, ‘DOLLY_IN’, ‘DOLLY_OUT’, ‘TRUCK’, ‘PEDESTAL’, ‘ZOOM’, ‘CRANE’, ‘HANDHELD’, ‘WHIP_PAN’, ‘DOLLY_ZOOM’]
 
-### *class* artful.schema.PanelBody(\*\*data)
+### *class* artful.schema.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
 
@@ -125,7 +125,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.schema.PanelImage(\*\*data)
+### *class* artful.schema.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -158,7 +158,7 @@ shot-grammar advisor and the panel body share one vocabulary.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘ECU’, ‘CU’, ‘MCU’, ‘MS’, ‘MWS’, ‘WS’, ‘LS’, ‘ELS’, ‘INSERT’, ‘TWO_SHOT’, ‘THREE_SHOT’, ‘GROUP’, ‘MASTER’]
 
-### *class* artful.schema.Storyboard(\*\*data)
+### *class* artful.schema.Storyboard(\*, title='', asset_id, panels=<factory>, style='', aspect='16:9')
 
 Bases: `BaseModel`
 

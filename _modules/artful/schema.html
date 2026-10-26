@@ -6,10 +6,11 @@
 <link rel="alternate" type="text/markdown" href="schema.html.md">
 <link rel="describedby" href="../../llms.txt" type="text/markdown"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+    <!-- Generated with Sphinx 9.1.1 and Furo 2025.12.19 -->
         <title>artful.schema - artful</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d75fae25" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -683,9 +684,10 @@
     <span class="n">canonical_views</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">ModelSheetView</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">"Map of canonical view → ``render-result`` annotation id. Not "</span>
-            <span class="s2">"every view is required for v1; the producing Transform fills "</span>
-            <span class="s2">"the views it can hit."</span>
+            <span class="s2">"Map of canonical view → image url (what the producing Transform "</span>
+            <span class="s1">'stores, and what consumers read back as a url; ``""`` if the '</span>
+            <span class="s2">"render returned none). Not every view is required for v1; the "</span>
+            <span class="s2">"Transform fills the views it can hit."</span>
         <span class="p">),</span>
     <span class="p">)</span>
     <span class="n">expression_set</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
@@ -776,7 +778,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=6b09a97f"></script>
+</div><script src="../../_static/documentation_options.js?v=2a6a9ca9"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

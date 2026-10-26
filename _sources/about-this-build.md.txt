@@ -5,41 +5,39 @@ orphan: true
 
 # About this build
 
-This documentation was built on **2026-10-03 07:50 UTC** from commit <a href="https://github.com/thorwhalen/artful/commit/387f2186eb76afa1cddc813cdb469484e9d5bbed"><code>387f218</code></a> on branch <code>main</code>, for **artful 0.0.13** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-26 15:16 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
 
-:::{warning}
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install artful` gives newer code than these docs describe.
+:::{note}
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 :::
 
 ## Source
 
 | | |
 |---|---|
-| Commit | <a href="https://github.com/thorwhalen/artful/commit/387f2186eb76afa1cddc813cdb469484e9d5bbed"><code>387f2186eb76afa1cddc813cdb469484e9d5bbed</code></a> |
+| Commit | <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e70ad9d8e17e0a05ea9a32c1cfea050c60</code></a> |
 | Branch | <code>main</code> |
-| Tags at this commit | none |
+| Tags at this commit | <code>0.0.15</code> |
 | Working tree | clean |
-| Remote | <code>https://github.com/thorwhalen/artful</code> |
+| Remote | <code>https://github.com/reeleehq/artful</code> |
 
 ## Continuous integration
 
 | | |
 |---|---|
-| Repository | <code>thorwhalen/artful</code> |
-| Run | <a href="https://github.com/thorwhalen/artful/actions/runs/37107587944">37107587944</a> |
+| Repository | <code>reeleehq/artful</code> |
+| Run | <a href="https://github.com/reeleehq/artful/actions/runs/40347284751">40347284751</a> |
 | Ref | <code>refs/heads/main</code> |
-| Event commit | <code>387f2186eb76afa1cddc813cdb469484e9d5bbed</code> (in the history of the built commit) |
+| Event commit | <code>7e4f1f0176e597c1ffce134c4fafed1224828ef2</code> (in the history of the built commit) |
 
 ## Tools
 
 | | |
 |---|---|
-| epythet | 0.2.12 |
-| Sphinx | 9.1.0 |
+| epythet | 0.2.22 |
+| Sphinx | 9.1.1 |
 | docutils | 0.22.4 |
-| Python | 3.12.14 |
+| Python | 3.12.15 |
 
 ## Configuration as resolved
 
@@ -55,14 +53,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.14/">0.0.14</a>, newer than the documented version (0.0.13).
+Latest release: <a href="https://pypi.org/project/artful/0.0.15/">0.0.15</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
-git clone https://github.com/thorwhalen/artful && cd artful
-git checkout 387f2186eb76afa1cddc813cdb469484e9d5bbed
-pip install "epythet==0.2.12"
+git clone https://github.com/reeleehq/artful && cd artful
+git checkout 21f230e70ad9d8e17e0a05ea9a32c1cfea050c60
+pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 

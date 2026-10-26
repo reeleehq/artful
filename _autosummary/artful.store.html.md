@@ -28,10 +28,10 @@ unchanged. Apps add storyboard semantics by reading panels via
 
 ### Classes
 
-| [`StoryboardMetaBody`](#artful.store.StoryboardMetaBody)(\*\*data)   |    |
-|---------------------------------------------------------------------------------|----|
+| [`StoryboardMetaBody`](#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   |    |
+|---------------------------------------------------------------------------------------------------|----|
 
-### *class* artful.store.StoryboardMetaBody(\*\*data)
+### *class* artful.store.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
 

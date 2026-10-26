@@ -1,4 +1,4 @@
-> built 2026-10-03 07:50 UTC from 387f218 (main) · artful 0.0.13. Details: build_info.json
+> built 2026-10-26 15:16 UTC from 21f230e (main) · artful 0.0.15. Details: build_info.json
 
 # index.html.md
 
@@ -390,17 +390,17 @@ Public surface:
 
 ### Classes
 
-| [`ModelSheet`](_autosummary/artful.html.md#artful.ModelSheet)(\*\*data)         | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
-|-------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`PanelBody`](_autosummary/artful.html.md#artful.PanelBody)(\*\*data)          | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](_autosummary/artful.html.md#artful.PanelImage)(\*\*data)         | One image associated with a panel.                                                                                    |
-| [`RiskFlag`](_autosummary/artful.html.md#artful.RiskFlag)(\*\*data)           | One advisory warning attached to a shot (or to the whole schedule).                                                   |
-| [`ShotEntry`](_autosummary/artful.html.md#artful.ShotEntry)(\*\*data)          | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
-| [`ShotScheduleBody`](_autosummary/artful.html.md#artful.ShotScheduleBody)(\*\*data)   | The body of a shot-schedule annotation — the ordered shot list.                                                       |
-| [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard)(\*\*data)         | A typed view over a sequence of panel annotations.                                                                    |
-| [`StoryboardMetaBody`](_autosummary/artful.html.md#artful.StoryboardMetaBody)(\*\*data) |                                                                                                                       |
+| [`ModelSheet`](_autosummary/artful.html.md#artful.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
+|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`PanelBody`](_autosummary/artful.html.md#artful.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
+| [`PanelImage`](_autosummary/artful.html.md#artful.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`RiskFlag`](_autosummary/artful.html.md#artful.RiskFlag)(\*, code[, message, severity, gotcha_id])  | One advisory warning attached to a shot (or to the whole schedule).                                                   |
+| [`ShotEntry`](_autosummary/artful.html.md#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
+| [`ShotScheduleBody`](_autosummary/artful.html.md#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
+| [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
+| [`StoryboardMetaBody`](_autosummary/artful.html.md#artful.StoryboardMetaBody)(\*[, title, style, aspect])      |                                                                                                                       |
 
-### *class* artful.ModelSheet(\*\*data)
+### *class* artful.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
 
@@ -416,7 +416,7 @@ and the inspector surfaces them alongside the panels they conditioned.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelBody(\*\*data)
+### *class* artful.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
 
@@ -433,7 +433,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.PanelImage(\*\*data)
+### *class* artful.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -448,7 +448,7 @@ from “this is the seed image for the renderer.”
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.RiskFlag(\*\*data)
+### *class* artful.RiskFlag(, code, message='', severity='warn', gotcha_id=None)
 
 Bases: `BaseModel`
 
@@ -463,7 +463,7 @@ changing the model — [`ShotScheduleBody.needs_advice`](_autosummary/artful.htm
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.ShotEntry(\*\*data)
+### *class* artful.ShotEntry(\*, shot_id, panel_id=None, beat_id=None, description='', characters=<factory>, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, max_duration_seconds=None, max_characters_in_frame=None, aspect=None, resolution=None, allow_last_frame_anchor=False, has_dialogue=False, has_action=False, take_budget=None, clump_id=None, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -476,7 +476,7 @@ there is deliberately no `order` field to disagree with it.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.ShotScheduleBody(\*\*data)
+### *class* artful.ShotScheduleBody(\*, schedule_id, title='', model_id=None, advised_for_model_id=None, aspect='16:9', resolution=None, shots=<factory>, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -505,7 +505,7 @@ The entry with `shot_id`, or None. Mirrors `Storyboard.panel`.
 * **Return type:**
   [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ShotEntry`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotEntry)]
 
-### *class* artful.Storyboard(\*\*data)
+### *class* artful.Storyboard(\*, title='', asset_id, panels=<factory>, style='', aspect='16:9')
 
 Bases: `BaseModel`
 
@@ -519,7 +519,7 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.StoryboardMetaBody(\*\*data)
+### *class* artful.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
 
@@ -717,11 +717,11 @@ plan that drives the renderer. Use cases:
 
 ### Classes
 
-| [`ModelSheet`](_autosummary/artful.schema.html.md#artful.schema.ModelSheet)(\*\*data)   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
-|-------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`PanelBody`](_autosummary/artful.schema.html.md#artful.schema.PanelBody)(\*\*data)    | The body of a storyboard-panel annotation.                                                                            |
-| [`PanelImage`](_autosummary/artful.schema.html.md#artful.schema.PanelImage)(\*\*data)   | One image associated with a panel.                                                                                    |
-| [`Storyboard`](_autosummary/artful.schema.html.md#artful.schema.Storyboard)(\*\*data)   | A typed view over a sequence of panel annotations.                                                                    |
+| [`ModelSheet`](_autosummary/artful.schema.html.md#artful.schema.ModelSheet)(\*, character_ref_id, sheet_id[, ...])   | The body of a model-sheet annotation — a character's canonical turnaround, expression set, and supporting metadata.   |
+|------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`PanelBody`](_autosummary/artful.schema.html.md#artful.schema.PanelBody)(\*, panel_id[, shot_id, images, ...])     | The body of a storyboard-panel annotation.                                                                            |
+| [`PanelImage`](_autosummary/artful.schema.html.md#artful.schema.PanelImage)(\*[, artifact_id, url, path, ...])       | One image associated with a panel.                                                                                    |
+| [`Storyboard`](_autosummary/artful.schema.html.md#artful.schema.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
 
 ### artful.schema.Angle
 
@@ -737,7 +737,7 @@ indicates the user overrode the estimate.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘estimate’, ‘from_voiceover’, ‘from_clip’, ‘manual’]
 
-### *class* artful.schema.ModelSheet(\*\*data)
+### *class* artful.schema.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
 
@@ -779,7 +779,7 @@ Spec §6.3 movement taxonomy. `LOCKED` is the default in practice.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘LOCKED’, ‘PAN’, ‘TILT’, ‘DOLLY_IN’, ‘DOLLY_OUT’, ‘TRUCK’, ‘PEDESTAL’, ‘ZOOM’, ‘CRANE’, ‘HANDHELD’, ‘WHIP_PAN’, ‘DOLLY_ZOOM’]
 
-### *class* artful.schema.PanelBody(\*\*data)
+### *class* artful.schema.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
 
@@ -796,7 +796,7 @@ interval information here.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.schema.PanelImage(\*\*data)
+### *class* artful.schema.PanelImage(, artifact_id=None, url=None, path=None, role='thumbnail', caption='')
 
 Bases: `BaseModel`
 
@@ -829,7 +829,7 @@ shot-grammar advisor and the panel body share one vocabulary.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘ECU’, ‘CU’, ‘MCU’, ‘MS’, ‘MWS’, ‘WS’, ‘LS’, ‘ELS’, ‘INSERT’, ‘TWO_SHOT’, ‘THREE_SHOT’, ‘GROUP’, ‘MASTER’]
 
-### *class* artful.schema.Storyboard(\*\*data)
+### *class* artful.schema.Storyboard(\*, title='', asset_id, panels=<factory>, style='', aspect='16:9')
 
 Bases: `BaseModel`
 
@@ -910,10 +910,10 @@ panel exists.
 
 ### Classes
 
-| [`RiskFlag`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.RiskFlag)(\*\*data)         | One advisory warning attached to a shot (or to the whole schedule).   |
-|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [`ShotEntry`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotEntry)(\*\*data)        | One row of a shot schedule: what to shoot, and what bounds it.        |
-| [`ShotScheduleBody`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotScheduleBody)(\*\*data) | The body of a shot-schedule annotation — the ordered shot list.       |
+| [`RiskFlag`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.RiskFlag)(\*, code[, message, severity, gotcha_id])   | One advisory warning attached to a shot (or to the whole schedule).   |
+|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| [`ShotEntry`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])     | One row of a shot schedule: what to shoot, and what bounds it.        |
+| [`ShotScheduleBody`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotScheduleBody)(\*, schedule_id[, title, ...])      | The body of a shot-schedule annotation — the ordered shot list.       |
 
 ### artful.shot_schedule.RiskCode
 
@@ -932,7 +932,7 @@ schema change, made deliberately.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘over_clip_cap’, ‘multi_character’, ‘first_last_frame’, ‘dialogue_plus_action’, ‘over_take_budget’, ‘unsupported_resolution’, ‘mixed_aspect_ratios’]
 
-### *class* artful.shot_schedule.RiskFlag(\*\*data)
+### *class* artful.shot_schedule.RiskFlag(, code, message='', severity='warn', gotcha_id=None)
 
 Bases: `BaseModel`
 
@@ -958,7 +958,7 @@ alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Litera
 Default lacing tier for persisted schedules — so several schedules over
 one asset (a draft and a revision, say) stay distinguishable by tier.
 
-### *class* artful.shot_schedule.ShotEntry(\*\*data)
+### *class* artful.shot_schedule.ShotEntry(\*, shot_id, panel_id=None, beat_id=None, description='', characters=<factory>, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, max_duration_seconds=None, max_characters_in_frame=None, aspect=None, resolution=None, allow_last_frame_anchor=False, has_dialogue=False, has_action=False, take_budget=None, clump_id=None, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -971,7 +971,7 @@ there is deliberately no `order` field to disagree with it.
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
-### *class* artful.shot_schedule.ShotScheduleBody(\*\*data)
+### *class* artful.shot_schedule.ShotScheduleBody(\*, schedule_id, title='', model_id=None, advised_for_model_id=None, aspect='16:9', resolution=None, shots=<factory>, risk_flags=<factory>, notes='')
 
 Bases: `BaseModel`
 
@@ -1086,10 +1086,10 @@ unchanged. Apps add storyboard semantics by reading panels via
 
 ### Classes
 
-| [`StoryboardMetaBody`](_autosummary/artful.store.html.md#artful.store.StoryboardMetaBody)(\*\*data)   |    |
-|---------------------------------------------------------------------------------|----|
+| [`StoryboardMetaBody`](_autosummary/artful.store.html.md#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   |    |
+|---------------------------------------------------------------------------------------------------|----|
 
-### *class* artful.store.StoryboardMetaBody(\*\*data)
+### *class* artful.store.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
 
@@ -1155,40 +1155,38 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-10-03 07:50 UTC** from commit <a href="https://github.com/thorwhalen/artful/commit/387f2186eb76afa1cddc813cdb469484e9d5bbed"><code>387f218</code></a> on branch <code>main</code>, for **artful 0.0.13** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-26 15:16 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.13) is behind the latest release on PyPI (0.0.14): `pip install artful` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
-|                     |                                                                                                                                                          |
-|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/thorwhalen/artful/commit/387f2186eb76afa1cddc813cdb469484e9d5bbed"><code>387f2186eb76afa1cddc813cdb469484e9d5bbed</code></a> |
-| Branch              | <code>main</code>                                                                                                                                        |
-| Tags at this commit | none                                                                                                                                                     |
-| Working tree        | clean                                                                                                                                                    |
-| Remote              | <code>https://github.com/thorwhalen/artful</code>                                                                                                        |
+|                     |                                                                                                                                                        |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e70ad9d8e17e0a05ea9a32c1cfea050c60</code></a> |
+| Branch              | <code>main</code>                                                                                                                                      |
+| Tags at this commit | <code>0.0.15</code>                                                                                                                                    |
+| Working tree        | clean                                                                                                                                                  |
+| Remote              | <code>https://github.com/reeleehq/artful</code>                                                                                                        |
 
 ## Continuous integration
 
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
-| Repository   | <code>thorwhalen/artful</code>                                                             |
-| Run          | <a href="https://github.com/thorwhalen/artful/actions/runs/37107587944">37107587944</a>    |
+| Repository   | <code>reeleehq/artful</code>                                                               |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40347284751">40347284751</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>387f2186eb76afa1cddc813cdb469484e9d5bbed</code> (in the history of the built commit) |
+| Event commit | <code>7e4f1f0176e597c1ffce134c4fafed1224828ef2</code> (in the history of the built commit) |
 
 ## Tools
 
 |          |         |
 |----------|---------|
-| epythet  | 0.2.12  |
-| Sphinx   | 9.1.0   |
+| epythet  | 0.2.22  |
+| Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.14 |
+| Python   | 3.12.15 |
 
 ## Configuration as resolved
 
@@ -1204,14 +1202,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.14/">0.0.14</a>, newer than the documented version (0.0.13).
+Latest release: <a href="https://pypi.org/project/artful/0.0.15/">0.0.15</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
-git clone https://github.com/thorwhalen/artful && cd artful
-git checkout 387f2186eb76afa1cddc813cdb469484e9d5bbed
-pip install "epythet==0.2.12"
+git clone https://github.com/reeleehq/artful && cd artful
+git checkout 21f230e70ad9d8e17e0a05ea9a32c1cfea050c60
+pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
