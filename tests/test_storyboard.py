@@ -99,10 +99,12 @@ def _build_storyboard():
 
 def test_save_then_load_roundtrip():
     sb = _build_storyboard()
-    intervals = panel_intervals_from_panels([
-        ("p1", 0.0, 4.0),
-        ("p2", 4.0, 8.0),
-    ])
+    intervals = panel_intervals_from_panels(
+        [
+            ("p1", 0.0, 4.0),
+            ("p2", 4.0, 8.0),
+        ]
+    )
     store = MemoryStore()
     save_storyboard(sb, store, panel_intervals=intervals)
     loaded = load_storyboard(store, asset_id=sb.asset_id)
@@ -126,15 +128,15 @@ def test_save_requires_interval_for_every_panel():
 
 def test_load_filters_by_asset_id():
     """Two storyboards over different assets in one store stay separate."""
-    sb_a = Storyboard(asset_id="A", panels=(
-        PanelBody(panel_id="pa", caption="a"),
-    ))
-    sb_b = Storyboard(asset_id="B", panels=(
-        PanelBody(panel_id="pb", caption="b"),
-    ))
+    sb_a = Storyboard(asset_id="A", panels=(PanelBody(panel_id="pa", caption="a"),))
+    sb_b = Storyboard(asset_id="B", panels=(PanelBody(panel_id="pb", caption="b"),))
     store = MemoryStore()
-    save_storyboard(sb_a, store, panel_intervals={"pa": TimeInterval.from_seconds(0, 1)})
-    save_storyboard(sb_b, store, panel_intervals={"pb": TimeInterval.from_seconds(0, 1)})
+    save_storyboard(
+        sb_a, store, panel_intervals={"pa": TimeInterval.from_seconds(0, 1)}
+    )
+    save_storyboard(
+        sb_b, store, panel_intervals={"pb": TimeInterval.from_seconds(0, 1)}
+    )
 
     loaded_a = load_storyboard(store, asset_id="A")
     loaded_b = load_storyboard(store, asset_id="B")
@@ -144,9 +146,12 @@ def test_load_filters_by_asset_id():
 
 def test_load_filters_by_tier():
     sb = _build_storyboard()
-    intervals = panel_intervals_from_panels([
-        ("p1", 0.0, 4.0), ("p2", 4.0, 8.0),
-    ])
+    intervals = panel_intervals_from_panels(
+        [
+            ("p1", 0.0, 4.0),
+            ("p2", 4.0, 8.0),
+        ]
+    )
     store = MemoryStore()
     save_storyboard(sb, store, panel_intervals=intervals, tier="alt-storyboard")
     # Default tier = "storyboard" finds nothing.
@@ -182,15 +187,18 @@ def test_markdown_round_trip_preserves_fields():
 
 def test_markdown_includes_image_refs():
     sb = Storyboard(
-        title="t", asset_id="x",
-        panels=(PanelBody(
-            panel_id="p1",
-            images=(
-                PanelImage(path="thumb.png", caption="thumb", role="thumbnail"),
-                PanelImage(url="https://x/seed.png", role="seed", caption="seed"),
-                PanelImage(artifact_id="a" * 64, caption="from-artifact"),
+        title="t",
+        asset_id="x",
+        panels=(
+            PanelBody(
+                panel_id="p1",
+                images=(
+                    PanelImage(path="thumb.png", caption="thumb", role="thumbnail"),
+                    PanelImage(url="https://x/seed.png", role="seed", caption="seed"),
+                    PanelImage(artifact_id="a" * 64, caption="from-artifact"),
+                ),
             ),
-        ),),
+        ),
     )
     md = to_markdown(sb)
     assert "![thumb](thumb.png)" in md
@@ -200,15 +208,18 @@ def test_markdown_includes_image_refs():
 
 def test_markdown_image_refs_round_trip():
     sb = Storyboard(
-        title="t", asset_id="x",
-        panels=(PanelBody(
-            panel_id="p1",
-            images=(
-                PanelImage(path="thumb.png", caption="thumb"),
-                PanelImage(url="https://x/seed.png", caption="seed"),
-                PanelImage(artifact_id="a" * 64, caption="art"),
+        title="t",
+        asset_id="x",
+        panels=(
+            PanelBody(
+                panel_id="p1",
+                images=(
+                    PanelImage(path="thumb.png", caption="thumb"),
+                    PanelImage(url="https://x/seed.png", caption="seed"),
+                    PanelImage(artifact_id="a" * 64, caption="art"),
+                ),
             ),
-        ),),
+        ),
     )
     md = to_markdown(sb)
     sb2, _ = from_markdown(md)

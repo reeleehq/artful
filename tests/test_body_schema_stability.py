@@ -396,14 +396,14 @@ def _with_extras(base: str, extras: dict) -> str:
     return f"{base}({tail})"
 
 
-def test_model_sheet_locations_are_marked():
-    """The sibling maps hold image urls (as ``canonical_views``): the schema says
-    so, so consumers (redaction, write gates) need not guess from key names."""
-    from lacing import location_fields
-
-    from artful.schema import ModelSheet
-
-    assert location_fields(ModelSheet) == {
+#: Which fields of each owned body hold a location (``lacing.Location``,
+#: ``x-location``). Not in the shape pins above, but still a contract: redaction,
+#: edit guards and write gates read it, so adding, removing or flipping a marker
+#: is a deliberate change.
+LOCATIONS = {
+    "annot://schema/storyboard-panel/v1": {},
+    "annot://schema/shot-schedule/v1": {},
+    "annot://schema/model-sheet/v1": {
         name: "url"
         for name in (
             "canonical_views",
@@ -412,4 +412,13 @@ def test_model_sheet_locations_are_marked():
             "age_progression",
             "prop_interactions",
         )
-    }
+    },
+    "annot://schema/storyboard-meta/v1": {},
+}
+
+
+@pytest.mark.parametrize("uri", sorted(LOCATIONS))
+def test_location_markers_are_pinned(uri):
+    from lacing import location_fields
+
+    assert location_fields(OWNED[uri]) == LOCATIONS[uri]

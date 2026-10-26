@@ -29,7 +29,7 @@ plan that drives the renderer. Use cases:
 from __future__ import annotations
 
 import uuid as _uuid
-from typing import Annotated, Literal, Optional
+from typing import Annotated, Literal, Optional, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -396,6 +396,12 @@ ModelSheetView = Literal[
     "three_quarter_back",
     "back",
 ]
+
+_K = TypeVar("_K")
+#: A map from a label to an image url (``""`` when the render returned none).
+#: The ``Location`` marker says so in the schema, so consumers need not guess
+#: from key names.
+ImageUrlMap = Annotated[dict[_K, str], Location("url")]
 """Canonical model-sheet views (spec §7.4 conventions)."""
 
 
@@ -421,7 +427,7 @@ class ModelSheet(BaseModel):
     sheet_id: str = Field(
         ..., description="Stable id within the project (e.g. 'ms-001')."
     )
-    canonical_views: Annotated[dict[ModelSheetView, str], Location("url")] = Field(
+    canonical_views: ImageUrlMap[ModelSheetView] = Field(
         default_factory=dict,
         description=(
             "Map of canonical view → image url (what the producing Transform "
@@ -430,16 +436,15 @@ class ModelSheet(BaseModel):
             "Transform fills the views it can hit."
         ),
     )
-    expression_set: Annotated[dict[str, str], Location("url")] = Field(
+    expression_set: ImageUrlMap[str] = Field(
         default_factory=dict,
         description=(
-            "Map of expression label (e.g. 'joy', 'fear', 'neutral') → image "
-            'url, as ``canonical_views`` (``""`` if the render returned none).'
+            "Map of expression label (e.g. 'joy', 'fear', 'neutral') → image url."
         ),
     )
-    costume_set: Annotated[dict[str, str], Location("url")] = Field(
+    costume_set: ImageUrlMap[str] = Field(
         default_factory=dict,
-        description="Map of costume label → image url, as ``canonical_views``.",
+        description="Map of costume label → image url.",
     )
     palette_anchors: tuple[str, ...] = Field(
         default_factory=tuple,
@@ -465,16 +470,13 @@ class ModelSheet(BaseModel):
         default_factory=tuple,
         description="Negative-prompt directives, character-scoped (spec §7.4).",
     )
-    age_progression: Annotated[dict[str, str], Location("url")] = Field(
+    age_progression: ImageUrlMap[str] = Field(
         default_factory=dict,
-        description=(
-            "Map of age label (e.g. 'child', 'elder') → image url, as "
-            "``canonical_views``. Optional."
-        ),
+        description=("Map of age label (e.g. 'child', 'elder') → image url. Optional."),
     )
-    prop_interactions: Annotated[dict[str, str], Location("url")] = Field(
+    prop_interactions: ImageUrlMap[str] = Field(
         default_factory=dict,
-        description="Map of prop id → image url, as ``canonical_views``.",
+        description="Map of prop id → image url (the character with that prop).",
     )
     voice_personality_notes: Optional[str] = Field(
         None,
