@@ -321,3 +321,14 @@ def test_markdown_unknown_shot_grammar_degrades_to_none():
     md = "# t\n\n- asset_id: `x`\n\n## panel p1\n\n- shot_size: BOGUS\n\ncap\n"
     sb, _ = from_markdown(md)
     assert sb.panel("p1").shot_size is None
+
+
+def test_a_panel_image_may_carry_the_content_hash_beside_its_artifact_id():
+    """A host fills ``asset_id`` from the artifact catalog (reelee#695); the panel must
+    still validate, or loading the whole storyboard fails on one filled image."""
+    from artful import PanelBody
+
+    body = PanelBody.model_validate(
+        {"panel_id": "p1", "images": [{"artifact_id": "art-image-1", "asset_id": "a" * 64}]}
+    )
+    assert body.images[0].asset_id == "a" * 64

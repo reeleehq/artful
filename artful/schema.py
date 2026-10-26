@@ -150,6 +150,14 @@ class PanelImage(BaseModel):
             "cross-machine identity."
         ),
     )
+    asset_id: Optional[str] = Field(
+        None,
+        description=(
+            "SHA-256 content hash of the image bytes, when known: derivable from "
+            "`artifact_id` once the artifact's bytes are ingested, so a host fills it "
+            "rather than a client (reelee#695)."
+        ),
+    )
     url: Optional[str] = Field(None, description="Remote URL, if applicable.")
     path: Optional[str] = Field(
         None, description="Local filesystem path, project-relative when possible."

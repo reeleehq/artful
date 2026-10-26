@@ -190,6 +190,7 @@ PINNED: dict[str, dict] = {
         "required": frozenset(),
         "fields": {
             "artifact_id": "string|null = null",
+            "asset_id": "string|null = null",
             "url": "string|null = null",
             "path": "string|null = null",
             "role": 'string = "thumbnail"',
