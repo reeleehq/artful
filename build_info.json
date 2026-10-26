@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-10-26T19:49:24Z",
+  "built_at": "2026-10-26T22:05:35Z",
   "package": {
     "name": "artful",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "display_name": "artful",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "fd010cc5fe10052de7095028049693cf929be94e",
-    "short_commit": "fd010cc",
+    "commit": "f65c4393e99016ea994342007e08152de8deb2b4",
+    "short_commit": "f65c439",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/reeleehq/artful",
-    "commit_url": "https://github.com/reeleehq/artful/commit/fd010cc5fe10052de7095028049693cf929be94e",
+    "commit_url": "https://github.com/reeleehq/artful/commit/f65c4393e99016ea994342007e08152de8deb2b4",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "reeleehq/artful",
-    "sha": "fd010cc5fe10052de7095028049693cf929be94e",
+    "sha": "f65c4393e99016ea994342007e08152de8deb2b4",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "40389938396",
-    "run_url": "https://github.com/reeleehq/artful/actions/runs/40389938396",
+    "run_id": "40409528952",
+    "run_url": "https://github.com/reeleehq/artful/actions/runs/40409528952",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -60,11 +60,11 @@
   },
   "pypi": {
     "checked": true,
-    "latest": "0.0.16",
+    "latest": "0.0.17",
     "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout fd010cc5fe10052de7095028049693cf929be94e\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout f65c4393e99016ea994342007e08152de8deb2b4\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": true,

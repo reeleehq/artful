@@ -279,7 +279,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Field</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Location</span><span class="p">,</span> <span class="n">register_body_schema</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Derived</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">register_body_schema</span>
 
 
 <span class="n">ReviewStatus</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
@@ -393,12 +393,14 @@
     <span class="n">artifact_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">"SHA-256 content hash of the image bytes (matches "</span>
-            <span class="s2">"`lacing.Artifact.asset_id`). Preferred over `url` / `path` for "</span>
-            <span class="s2">"cross-machine identity."</span>
+            <span class="s2">"Catalog id of the image (the artifact catalog's own id); the SHA-256 "</span>
+            <span class="s2">"content hash of its bytes is `asset_id`, derived from this once the "</span>
+            <span class="s2">"bytes are ingested. Preferred over `url` / `path` for cross-machine "</span>
+            <span class="s2">"identity. `asset_id` is only derivable (and so left out of the value "</span>
+            <span class="s2">"digest) when this is set."</span>
         <span class="p">),</span>
     <span class="p">)</span>
-    <span class="n">asset_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+    <span class="n">asset_id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Derived</span><span class="p">(</span><span class="s2">"artifact_id"</span><span class="p">)]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
             <span class="s2">"SHA-256 content hash of the image bytes, when known: derivable from "</span>
@@ -788,7 +790,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=0adb0642"></script>
+</div><script src="../../_static/documentation_options.js?v=a39b7224"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
