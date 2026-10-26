@@ -304,7 +304,7 @@ i2v / composite_lipsync seed images for downstream rendering.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#artful.schema.DurationSource" title="artful.schema.DurationSource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DurationSource</span></code></a></p></td>
 <td><p>Spec §7.5 — provenance of a panel's duration field.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#artful.schema.ModelSheetView" title="artful.schema.ModelSheetView"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelSheetView</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#artful.schema.ImageUrlMap" title="artful.schema.ImageUrlMap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageUrlMap</span></code></a></p></td>
 <td><p>Canonical model-sheet views (spec §7.4 conventions).</p></td>
 </tr>
 </tbody>
@@ -355,6 +355,13 @@ indicates the user overrode the estimate.</p>
 <p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code></a>[‘estimate’, ‘from_voiceover’, ‘from_clip’, ‘manual’]</p>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="artful.schema.ImageUrlMap">
+<span class="sig-prename descclassname"><span class="pre">artful.schema.</span></span><span class="sig-name descname"><span class="pre">ImageUrlMap</span></span><a class="headerlink" href="#artful.schema.ImageUrlMap" title="Link to this definition">¶</a></dt>
+<dd><p>Canonical model-sheet views (spec §7.4 conventions).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Annotated</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">_K</span></code>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">Location</span></code>(kind=url)]</p>
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="artful.schema.ModelSheet">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">artful.schema.</span></span><span class="sig-name descname"><span class="pre">ModelSheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">character_ref_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sheet_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canonical_views</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">costume_set</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">palette_anchors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distinguishing_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">head_to_body_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_not_do</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">age_progression</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_interactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voice_personality_notes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#ModelSheet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.schema.ModelSheet" title="Link to this definition">¶</a></dt>
@@ -373,13 +380,6 @@ and the inspector surfaces them alongside the panels they conditioned.</p>
 <dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="artful.schema.ModelSheetView">
-<span class="sig-prename descclassname"><span class="pre">artful.schema.</span></span><span class="sig-name descname"><span class="pre">ModelSheetView</span></span><a class="headerlink" href="#artful.schema.ModelSheetView" title="Link to this definition">¶</a></dt>
-<dd><p>Canonical model-sheet views (spec §7.4 conventions).</p>
-<p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code></a>[‘front’, ‘three_quarter_front’, ‘side_left’, ‘side_right’, ‘three_quarter_back’, ‘back’]</p>
 </dd></dl>
 
 <dl class="py data">
@@ -549,11 +549,11 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 <li><a class="reference internal" href="#">artful.schema</a><ul>
 <li><a class="reference internal" href="#artful.schema.Angle"><code class="docutils literal notranslate"><span class="pre">Angle</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.DurationSource"><code class="docutils literal notranslate"><span class="pre">DurationSource</span></code></a></li>
+<li><a class="reference internal" href="#artful.schema.ImageUrlMap"><code class="docutils literal notranslate"><span class="pre">ImageUrlMap</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.ModelSheet"><code class="docutils literal notranslate"><span class="pre">ModelSheet</span></code></a><ul>
 <li><a class="reference internal" href="#artful.schema.ModelSheet.model_config"><code class="docutils literal notranslate"><span class="pre">ModelSheet.model_config</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#artful.schema.ModelSheetView"><code class="docutils literal notranslate"><span class="pre">ModelSheetView</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.MomentHeuristic"><code class="docutils literal notranslate"><span class="pre">MomentHeuristic</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.MomentTiming"><code class="docutils literal notranslate"><span class="pre">MomentTiming</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.Movement"><code class="docutils literal notranslate"><span class="pre">Movement</span></code></a></li>

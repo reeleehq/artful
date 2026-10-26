@@ -15,7 +15,7 @@ artful.schema
       Angle
       Movement
       DurationSource
-      ModelSheetView
+      ImageUrlMap
    
    .. rubric:: Functions
 

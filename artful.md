@@ -1,4 +1,4 @@
-> built 2026-10-26 15:16 UTC from 21f230e (main) · artful 0.0.15. Details: build_info.json
+> built 2026-10-26 18:33 UTC from 4b90b08 (main) · artful 0.0.15. Details: build_info.json
 
 # index.html.md
 
@@ -708,7 +708,7 @@ plan that drives the renderer. Use cases:
 | [`Angle`](_autosummary/artful.schema.html.md#artful.schema.Angle)           | Spec §6.3 / §9.3 angle taxonomy.                                 |
 | [`Movement`](_autosummary/artful.schema.html.md#artful.schema.Movement)        | Spec §6.3 movement taxonomy.                                     |
 | [`DurationSource`](_autosummary/artful.schema.html.md#artful.schema.DurationSource)  | Spec §7.5 — provenance of a panel's duration field.              |
-| [`ModelSheetView`](_autosummary/artful.schema.html.md#artful.schema.ModelSheetView)  | Canonical model-sheet views (spec §7.4 conventions).             |
+| [`ImageUrlMap`](_autosummary/artful.schema.html.md#artful.schema.ImageUrlMap)     | Canonical model-sheet views (spec §7.4 conventions).             |
 
 ### Functions
 
@@ -737,6 +737,12 @@ indicates the user overrode the estimate.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘estimate’, ‘from_voiceover’, ‘from_clip’, ‘manual’]
 
+### artful.schema.ImageUrlMap
+
+Canonical model-sheet views (spec §7.4 conventions).
+
+alias of `Annotated`[[`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)[`_K`, [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)], `Location`(kind=url)]
+
 ### *class* artful.schema.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
@@ -752,12 +758,6 @@ and the inspector surfaces them alongside the panels they conditioned.
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
-
-### artful.schema.ModelSheetView
-
-Canonical model-sheet views (spec §7.4 conventions).
-
-alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘front’, ‘three_quarter_front’, ‘side_left’, ‘side_right’, ‘three_quarter_back’, ‘back’]
 
 ### artful.schema.MomentHeuristic
 
@@ -1155,7 +1155,7 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-10-26 15:16 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-26 18:33 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b08</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
 
 #### NOTE
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -1164,9 +1164,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e70ad9d8e17e0a05ea9a32c1cfea050c60</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
-| Tags at this commit | <code>0.0.15</code>                                                                                                                                    |
+| Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
 | Remote              | <code>https://github.com/reeleehq/artful</code>                                                                                                        |
 
@@ -1175,9 +1175,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40347284751">40347284751</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40378548919">40378548919</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>7e4f1f0176e597c1ffce134c4fafed1224828ef2</code> (in the history of the built commit) |
+| Event commit | <code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -1208,7 +1208,7 @@ Latest release: <a href="https://pypi.org/project/artful/0.0.15/">0.0.15</a>, th
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 21f230e70ad9d8e17e0a05ea9a32c1cfea050c60
+git checkout 4b90b084dcf7641bdae6dc83f1feb58d186c20d9
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

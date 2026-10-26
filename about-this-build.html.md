@@ -2,7 +2,7 @@
 
 # About this build
 
-This documentation was built on **2026-10-26 15:16 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-26 18:33 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b08</code></a> on branch <code>main</code>, for **artful 0.0.15** (from <code>pyproject.toml</code>).
 
 #### NOTE
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -11,9 +11,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/21f230e70ad9d8e17e0a05ea9a32c1cfea050c60"><code>21f230e70ad9d8e17e0a05ea9a32c1cfea050c60</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/4b90b084dcf7641bdae6dc83f1feb58d186c20d9"><code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
-| Tags at this commit | <code>0.0.15</code>                                                                                                                                    |
+| Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
 | Remote              | <code>https://github.com/reeleehq/artful</code>                                                                                                        |
 
@@ -22,9 +22,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40347284751">40347284751</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40378548919">40378548919</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>7e4f1f0176e597c1ffce134c4fafed1224828ef2</code> (in the history of the built commit) |
+| Event commit | <code>4b90b084dcf7641bdae6dc83f1feb58d186c20d9</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -55,7 +55,7 @@ Latest release: <a href="https://pypi.org/project/artful/0.0.15/">0.0.15</a>, th
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 21f230e70ad9d8e17e0a05ea9a32c1cfea050c60
+git checkout 4b90b084dcf7641bdae6dc83f1feb58d186c20d9
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

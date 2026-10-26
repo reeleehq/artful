@@ -37,7 +37,7 @@ plan that drives the renderer. Use cases:
 | [`Angle`](#artful.schema.Angle)           | Spec §6.3 / §9.3 angle taxonomy.                                 |
 | [`Movement`](#artful.schema.Movement)        | Spec §6.3 movement taxonomy.                                     |
 | [`DurationSource`](#artful.schema.DurationSource)  | Spec §7.5 — provenance of a panel's duration field.              |
-| [`ModelSheetView`](#artful.schema.ModelSheetView)  | Canonical model-sheet views (spec §7.4 conventions).             |
+| [`ImageUrlMap`](#artful.schema.ImageUrlMap)     | Canonical model-sheet views (spec §7.4 conventions).             |
 
 ### Functions
 
@@ -66,6 +66,12 @@ indicates the user overrode the estimate.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘estimate’, ‘from_voiceover’, ‘from_clip’, ‘manual’]
 
+### artful.schema.ImageUrlMap
+
+Canonical model-sheet views (spec §7.4 conventions).
+
+alias of `Annotated`[[`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)[`_K`, [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)], `Location`(kind=url)]
+
 ### *class* artful.schema.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
 Bases: `BaseModel`
@@ -81,12 +87,6 @@ and the inspector surfaces them alongside the panels they conditioned.
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
-
-### artful.schema.ModelSheetView
-
-Canonical model-sheet views (spec §7.4 conventions).
-
-alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘front’, ‘three_quarter_front’, ‘side_left’, ‘side_right’, ‘three_quarter_back’, ‘back’]
 
 ### artful.schema.MomentHeuristic
 
