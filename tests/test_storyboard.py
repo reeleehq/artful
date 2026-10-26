@@ -339,7 +339,14 @@ def test_a_late_asset_id_does_not_change_the_panels_value_digest():
     make everything derived from the panel look changed."""
     from uuid import uuid4
 
-    from lacing import Annotation, MediaRef, Provenance, RationalTime, TimeInterval, annotation_value_digest
+    from lacing import (
+        Annotation,
+        MediaRef,
+        Provenance,
+        RationalTime,
+        TimeInterval,
+        annotation_value_digest,
+    )
     from lacing.derived import derived_paths
 
     from artful import PANEL_BODY_SCHEMA_URI
@@ -347,17 +354,24 @@ def test_a_late_asset_id_does_not_change_the_panels_value_digest():
 
     assert ("images", None, "asset_id") in derived_paths(PanelBody)
 
-    def ann(images):
-        body = {"images": images}
-        return Annotation(
-            id=uuid4(), tier="panel",
+    def digest(images, **kw):
+        body = PanelBody(panel_id="p01", images=images).model_dump()
+        ann = Annotation(
+            id=uuid4(),
+            tier="panel",
             reference=MediaRef(asset_id="a" * 64, interval=TimeInterval.from_seconds(0, 1)),
-            body_schema_uri=PANEL_BODY_SCHEMA_URI, body=body,
-            provenance=Provenance(was_attributed_to="t", was_generated_by="t", generated_at_time=RationalTime(1)),
+            body_schema_uri=PANEL_BODY_SCHEMA_URI,
+            body=body,
+            provenance=Provenance(
+                was_attributed_to="t", was_generated_by="t", generated_at_time=RationalTime(1)
+            ),
         )
+        return annotation_value_digest(ann, **kw)
 
-    before = ann([{"artifact_id": "a1", "role": "primary"}])
-    after = ann([{"artifact_id": "a1", "role": "primary", "asset_id": "f" * 64}])
-    other = ann([{"artifact_id": "a2", "role": "primary"}])
-    assert annotation_value_digest(before) == annotation_value_digest(after)
-    assert annotation_value_digest(before) != annotation_value_digest(other)
+    bare = [{"artifact_id": "a1", "role": "seed"}]
+    filled = [{"artifact_id": "a1", "role": "seed", "asset_id": "f" * 64}]
+    other = [{"artifact_id": "a2", "role": "seed", "asset_id": "f" * 64}]
+    assert digest(bare) == digest(filled)
+    assert digest(filled) != digest(other)  # the id that asset_id derives from still counts
+    v1 = "lacing/annotation-value-digest/v1"
+    assert digest(bare, scheme=v1) != digest(filled, scheme=v1)  # old traces keep the old rule
