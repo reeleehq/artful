@@ -375,3 +375,44 @@ def test_a_late_asset_id_does_not_change_the_panels_value_digest():
     assert digest(filled) != digest(other)  # the id that asset_id derives from still counts
     v1 = "lacing/annotation-value-digest/v1"
     assert digest(bare, scheme=v1) != digest(filled, scheme=v1)  # old traces keep the old rule
+
+
+# --- panel_id is a slug every panel route can carry (reeleehq/reelee#930) ----
+
+
+@pytest.mark.parametrize("bad", ["x/y", "..", ".", "", "-lead", "café", "a b", "p" * 256])
+def test_a_panel_id_no_route_can_carry_is_refused(bad):
+    from pydantic import ValidationError
+
+    from artful import PanelBody, is_valid_panel_id
+
+    assert not is_valid_panel_id(bad)
+    with pytest.raises(ValidationError, match="panel id"):
+        PanelBody(panel_id=bad)
+
+
+@pytest.mark.parametrize("good", ["p3f7c1", "p07-copy", "1A", "s1.p2_b"])
+def test_slug_panel_ids_and_minted_ones_are_accepted(good):
+    from artful import PanelBody, new_panel_id
+
+    assert PanelBody(panel_id=good).panel_id == good
+    assert PanelBody(panel_id=new_panel_id()).panel_id
+
+
+def test_a_stored_panel_with_a_legacy_id_still_loads():
+    """The rule binds writers; a body stored before it existed reads back (to be renamed)."""
+    from artful import STORED_PANEL, PanelBody
+
+    assert PanelBody.model_validate({"panel_id": "x/y"}, context=STORED_PANEL).panel_id == "x/y"
+
+
+def test_the_stored_context_is_read_only_and_only_its_own_key_skips_the_check():
+    from pydantic import ValidationError
+
+    from artful import STORED_PANEL, PanelBody
+
+    with pytest.raises(TypeError):
+        STORED_PANEL["artful.stored_panel"] = False  # type: ignore[index]
+    for context in ({"stored": True}, {"artful.stored_panel": "yes"}):
+        with pytest.raises(ValidationError, match="panel id"):
+            PanelBody.model_validate({"panel_id": "x/y"}, context=context)

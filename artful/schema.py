@@ -28,10 +28,12 @@ plan that drives the renderer. Use cases:
 
 from __future__ import annotations
 
+import re as _re
 import uuid as _uuid
+from types import MappingProxyType as _MappingProxyType
 from typing import Annotated, Literal, Optional, TypeVar
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
 
 from lacing import Derived, Location, register_body_schema
 
@@ -177,6 +179,52 @@ class PanelImage(BaseModel):
     caption: str = ""
 
 
+#: A panel id is one URL path segment on every panel route a host serves
+#: (``/panels/{panel_id}/…``), and hosts derive file names from it, so it is a
+#: slug: ASCII letters, digits and ``._-``, starting with a letter or digit. That
+#: excludes ``/`` (``%2F`` is decoded before routing), and the ``.`` / ``..``
+#: segments clients collapse (reeleehq/reelee#930). Minted ids
+#: (:func:`new_panel_id`) satisfy it.
+PANEL_ID_PATTERN = r"[A-Za-z0-9][A-Za-z0-9._-]*"
+MAX_PANEL_ID_LENGTH = 255
+_PANEL_ID_RE = _re.compile(PANEL_ID_PATTERN)
+
+_STORED_PANEL_KEY = "artful.stored_panel"
+
+#: The validation context for reading a STORED panel body back:
+#: ``PanelBody.model_validate(body, context=STORED_PANEL)``. A stored id is not
+#: re-checked, so a panel written before the rule existed still loads; every other
+#: construction checks it. Read-only, and its key is namespaced so no other model's
+#: validator reads it.
+STORED_PANEL = _MappingProxyType({_STORED_PANEL_KEY: True})
+
+
+def is_valid_panel_id(value) -> bool:
+    """Whether ``value`` is a panel id every panel route can carry.
+
+    >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
+    (True, True, True)
+    >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
+    (False, False, False, False)
+    """
+    return (
+        isinstance(value, str)
+        and len(value) <= MAX_PANEL_ID_LENGTH
+        and _PANEL_ID_RE.fullmatch(value) is not None
+    )
+
+
+def check_panel_id(value: str) -> str:
+    """``value`` if :func:`is_valid_panel_id`, else ``ValueError`` naming the rule."""
+    if not is_valid_panel_id(value):
+        raise ValueError(
+            f"panel id {value!r} refused: a panel id uses ASCII letters, digits and "
+            f"'._-', starts with a letter or digit, and is at most "
+            f"{MAX_PANEL_ID_LENGTH} characters"
+        )
+    return value
+
+
 class PanelBody(BaseModel):
     """The body of a storyboard-panel annotation.
 
@@ -192,8 +240,13 @@ class PanelBody(BaseModel):
 
     panel_id: str = Field(
         ...,
-        description="Stable id within a storyboard. Distinct from the annotation id.",
+        description=(
+            "Stable id within a storyboard. Distinct from the annotation id. A slug "
+            "(ASCII letters, digits and ._-, starting alphanumeric), so every panel "
+            "route can carry it."
+        ),
     )
+
     shot_id: Optional[str] = Field(
         None,
         description=(
@@ -356,6 +409,13 @@ class PanelBody(BaseModel):
             "for cache-busting when the model changes."
         ),
     )
+
+    @field_validator("panel_id")
+    @classmethod
+    def _panel_id_is_a_slug(cls, value: str, info: ValidationInfo) -> str:
+        if (info.context or {}).get(_STORED_PANEL_KEY) is True:
+            return value  # reading back what is already stored (STORED_PANEL)
+        return check_panel_id(value)
 
 
 class Storyboard(BaseModel):

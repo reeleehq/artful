@@ -35,6 +35,7 @@ from lacing.artifact import _now_rt
 from .schema import (
     PANEL_BODY_SCHEMA_URI,
     PanelBody,
+    STORED_PANEL,
     Storyboard,
 )
 
@@ -182,7 +183,7 @@ def load_storyboard(
         if ann.reference.asset_id != asset_id:
             continue
         if ann.body_schema_uri == PANEL_BODY_SCHEMA_URI:
-            panel = PanelBody.model_validate(ann.body)
+            panel = PanelBody.model_validate(ann.body, context=STORED_PANEL)
             panels.append((ann.reference.interval, panel))
         elif ann.body_schema_uri == STORYBOARD_META_BODY_SCHEMA_URI:
             meta = StoryboardMetaBody.model_validate(ann.body)
