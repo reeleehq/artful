@@ -281,6 +281,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.schema</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">PANEL_BODY_SCHEMA_URI</span><span class="p">,</span>
     <span class="n">PanelBody</span><span class="p">,</span>
+    <span class="n">STORED_PANEL</span><span class="p">,</span>
     <span class="n">Storyboard</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -436,7 +437,7 @@
         <span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">asset_id</span> <span class="o">!=</span> <span class="n">asset_id</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">body_schema_uri</span> <span class="o">==</span> <span class="n">PANEL_BODY_SCHEMA_URI</span><span class="p">:</span>
-            <span class="n">panel</span> <span class="o">=</span> <span class="n">PanelBody</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+            <span class="n">panel</span> <span class="o">=</span> <span class="n">PanelBody</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">STORED_PANEL</span><span class="p">)</span>
             <span class="n">panels</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ann</span><span class="o">.</span><span class="n">reference</span><span class="o">.</span><span class="n">interval</span><span class="p">,</span> <span class="n">panel</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">ann</span><span class="o">.</span><span class="n">body_schema_uri</span> <span class="o">==</span> <span class="n">STORYBOARD_META_BODY_SCHEMA_URI</span><span class="p">:</span>
             <span class="n">meta</span> <span class="o">=</span> <span class="n">StoryboardMetaBody</span><span class="o">.</span><span class="n">model_validate</span><span class="p">(</span><span class="n">ann</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
@@ -518,7 +519,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=a39b7224"></script>
+</div><script src="../../_static/documentation_options.js?v=01ec8363"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

@@ -29,20 +29,24 @@ plan that drives the renderer. Use cases:
 
 ### Module Attributes
 
-| [`ReviewStatus`](#artful.schema.ReviewStatus)    | Review status of a storyboard panel.                             |
-|------------------------------------------------------------------|------------------------------------------------------------------|
-| [`MomentHeuristic`](#artful.schema.MomentHeuristic) | Spec §7.2 iconic-frame heuristics.                               |
-| [`MomentTiming`](#artful.schema.MomentTiming)    | Spec §7.2 — where in the implied motion the depicted frame sits. |
-| [`ShotSize`](#artful.schema.ShotSize)        | Spec §6.3 shot-size taxonomy.                                    |
-| [`Angle`](#artful.schema.Angle)           | Spec §6.3 / §9.3 angle taxonomy.                                 |
-| [`Movement`](#artful.schema.Movement)        | Spec §6.3 movement taxonomy.                                     |
-| [`DurationSource`](#artful.schema.DurationSource)  | Spec §7.5 — provenance of a panel's duration field.              |
-| [`ImageUrlMap`](#artful.schema.ImageUrlMap)     | Canonical model-sheet views (spec §7.4 conventions).             |
+| [`ReviewStatus`](#artful.schema.ReviewStatus)     | Review status of a storyboard panel.                                                                                                                                                                                    |
+|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`MomentHeuristic`](#artful.schema.MomentHeuristic)  | Spec §7.2 iconic-frame heuristics.                                                                                                                                                                                      |
+| [`MomentTiming`](#artful.schema.MomentTiming)     | Spec §7.2 — where in the implied motion the depicted frame sits.                                                                                                                                                        |
+| [`ShotSize`](#artful.schema.ShotSize)         | Spec §6.3 shot-size taxonomy.                                                                                                                                                                                           |
+| [`Angle`](#artful.schema.Angle)            | Spec §6.3 / §9.3 angle taxonomy.                                                                                                                                                                                        |
+| [`Movement`](#artful.schema.Movement)         | Spec §6.3 movement taxonomy.                                                                                                                                                                                            |
+| [`DurationSource`](#artful.schema.DurationSource)   | Spec §7.5 — provenance of a panel's duration field.                                                                                                                                                                     |
+| [`PANEL_ID_PATTERN`](#artful.schema.PANEL_ID_PATTERN) | A panel id is one URL path segment on every panel route a host serves (`/panels/{panel_id}/…`), and hosts derive file names from it, so it is a slug: ASCII letters, digits and `._-`, starting with a letter or digit. |
+| [`STORED_PANEL`](#artful.schema.STORED_PANEL)     | The validation context for reading a STORED panel body back: `PanelBody.model_validate(body, context=STORED_PANEL)`.                                                                                                    |
+| [`ImageUrlMap`](#artful.schema.ImageUrlMap)      | Canonical model-sheet views (spec §7.4 conventions).                                                                                                                                                                    |
 
 ### Functions
 
-| [`new_panel_id`](#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).   |
-|---------------------------------------------------------------------------|------------------------------------------------------|
+| [`check_panel_id`](#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.   |
+|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`is_valid_panel_id`](#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry.                                                            |
+| [`new_panel_id`](#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                    |
 
 ### Classes
 
@@ -108,6 +112,15 @@ Spec §6.3 movement taxonomy. `LOCKED` is the default in practice.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘LOCKED’, ‘PAN’, ‘TILT’, ‘DOLLY_IN’, ‘DOLLY_OUT’, ‘TRUCK’, ‘PEDESTAL’, ‘ZOOM’, ‘CRANE’, ‘HANDHELD’, ‘WHIP_PAN’, ‘DOLLY_ZOOM’]
 
+### artful.schema.PANEL_ID_PATTERN *= '[A-Za-z0-9][A-Za-z0-9._-]\*'*
+
+A panel id is one URL path segment on every panel route a host serves
+(`/panels/{panel_id}/…`), and hosts derive file names from it, so it is a
+slug: ASCII letters, digits and `._-`, starting with a letter or digit. That
+excludes `/` (`%2F` is decoded before routing), and the `.` / `..`
+segments clients collapse (reeleehq/reelee#930). Minted ids
+([`new_panel_id()`](#artful.schema.new_panel_id)) satisfy it.
+
 ### *class* artful.schema.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
@@ -149,6 +162,14 @@ files without the field get the default).
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘unreviewed’, ‘approved’, ‘needs-revision’, ‘rejected’]
 
+### artful.schema.STORED_PANEL *= mappingproxy({'artful.stored_panel': True})*
+
+The validation context for reading a STORED panel body back:
+`PanelBody.model_validate(body, context=STORED_PANEL)`. A stored id is not
+re-checked, so a panel written before the rule existed still loads; every other
+construction checks it. Read-only, and its key is namespaced so no other model’s
+validator reads it.
+
 ### artful.schema.ShotSize
 
 Spec §6.3 shot-size taxonomy. Controlled vocabulary — distinct from the
@@ -171,6 +192,27 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid'}*
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+### artful.schema.check_panel_id(value)
+
+`value` if [`is_valid_panel_id()`](#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
+### artful.schema.is_valid_panel_id(value)
+
+Whether `value` is a panel id every panel route can carry.
+
+```pycon
+>>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
+(True, True, True)
+>>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
+(False, False, False, False)
+```
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### artful.schema.new_panel_id(prefix='p')
 

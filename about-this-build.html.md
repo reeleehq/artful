@@ -2,16 +2,18 @@
 
 # About this build
 
-This documentation was built on **2026-10-26 22:05 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/f65c4393e99016ea994342007e08152de8deb2b4"><code>f65c439</code></a> on branch <code>main</code>, for **artful 0.0.17** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-08 21:59 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa</code></a> on branch <code>main</code>, for **artful 0.0.18** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.18) is behind the latest release on PyPI (0.0.19): `pip install artful` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/f65c4393e99016ea994342007e08152de8deb2b4"><code>f65c4393e99016ea994342007e08152de8deb2b4</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa267e519744a1ad0b3dd64bee6a966552a</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -22,9 +24,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40409528952">40409528952</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/42527711377">42527711377</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>f65c4393e99016ea994342007e08152de8deb2b4</code> (in the history of the built commit) |
+| Event commit | <code>6501baa267e519744a1ad0b3dd64bee6a966552a</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -33,7 +35,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 | epythet  | 0.2.22  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.15 |
+| Python   | 3.12.16 |
 
 ## Configuration as resolved
 
@@ -49,13 +51,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.17/">0.0.17</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/artful/0.0.19/">0.0.19</a>, newer than the documented version (0.0.18).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout f65c4393e99016ea994342007e08152de8deb2b4
+git checkout 6501baa267e519744a1ad0b3dd64bee6a966552a
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

@@ -15,12 +15,16 @@ artful.schema
       Angle
       Movement
       DurationSource
+      PANEL_ID_PATTERN
+      STORED_PANEL
       ImageUrlMap
    
    .. rubric:: Functions
 
    .. autosummary::
    
+      check_panel_id
+      is_valid_panel_id
       new_panel_id
    
    .. rubric:: Classes

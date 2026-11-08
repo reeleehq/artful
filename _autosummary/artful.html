@@ -302,6 +302,12 @@ models for in-memory work.</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="#artful.new_panel_id" title="artful.new_panel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_panel_id</span></code></a>([prefix])</p></td>
 <td><p>Generate a fresh short panel id (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;p3f7c1&quot;</span></code>).</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#artful.is_valid_panel_id" title="artful.is_valid_panel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_panel_id</span></code></a>(value)</p></td>
+<td><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#artful.check_panel_id" title="artful.check_panel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_panel_id</span></code></a>(value)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">value</span></code> if <a class="reference internal" href="#artful.is_valid_panel_id" title="artful.is_valid_panel_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_valid_panel_id()</span></code></a>, else <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> naming the rule.</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#artful.new_schedule_id" title="artful.new_schedule_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_schedule_id</span></code></a>([prefix])</p></td>
 <td><p>Generate a fresh short schedule id (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;sch3f7c1&quot;</span></code>).</p></td>
 </tr>
@@ -523,6 +529,17 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="artful.check_panel_id">
+<span class="sig-prename descclassname"><span class="pre">artful.</span></span><span class="sig-name descname"><span class="pre">check_panel_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#check_panel_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.check_panel_id" title="Link to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">value</span></code> if <a class="reference internal" href="#artful.is_valid_panel_id" title="artful.is_valid_panel_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_valid_panel_id()</span></code></a>, else <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> naming the rule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="artful.from_markdown">
 <span class="sig-prename descclassname"><span class="pre">artful.</span></span><span class="sig-name descname"><span class="pre">from_markdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/exports.html#from_markdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.from_markdown" title="Link to this definition">¶</a></dt>
 <dd><p>Parse <a class="reference internal" href="#artful.to_markdown" title="artful.to_markdown"><code class="xref py py-func docutils literal notranslate"><span class="pre">to_markdown()</span></code></a>’s output back into a Storyboard + intervals.</p>
@@ -532,6 +549,23 @@ no entry in the intervals dict (caller can pin them later).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>[<a class="reference internal" href="artful.schema.html#artful.schema.Storyboard" title="artful.schema.Storyboard"><code class="xref py py-class docutils literal notranslate"><span class="pre">Storyboard</span></code></a>, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TimeInterval</span></code>]]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="artful.is_valid_panel_id">
+<span class="sig-prename descclassname"><span class="pre">artful.</span></span><span class="sig-name descname"><span class="pre">is_valid_panel_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#is_valid_panel_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.is_valid_panel_id" title="Link to this definition">¶</a></dt>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"p3f7c1"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"p07-copy"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"1.a_b"</span><span class="p">)</span>
+<span class="go">(True, True, True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"x/y"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">".."</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">""</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+<span class="go">(False, False, False, False)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -810,7 +844,9 @@ the intervals haven’t been pinned yet.</p>
 <li><a class="reference internal" href="#artful.StoryboardMetaBody.model_config"><code class="docutils literal notranslate"><span class="pre">StoryboardMetaBody.model_config</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#artful.check_panel_id"><code class="docutils literal notranslate"><span class="pre">check_panel_id()</span></code></a></li>
 <li><a class="reference internal" href="#artful.from_markdown"><code class="docutils literal notranslate"><span class="pre">from_markdown()</span></code></a></li>
+<li><a class="reference internal" href="#artful.is_valid_panel_id"><code class="docutils literal notranslate"><span class="pre">is_valid_panel_id()</span></code></a></li>
 <li><a class="reference internal" href="#artful.load_shot_schedule"><code class="docutils literal notranslate"><span class="pre">load_shot_schedule()</span></code></a></li>
 <li><a class="reference internal" href="#artful.load_shot_schedules"><code class="docutils literal notranslate"><span class="pre">load_shot_schedules()</span></code></a></li>
 <li><a class="reference internal" href="#artful.load_storyboard"><code class="docutils literal notranslate"><span class="pre">load_storyboard()</span></code></a></li>
@@ -833,7 +869,7 @@ the intervals haven’t been pinned yet.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=a39b7224"></script>
+</div><script src="../_static/documentation_options.js?v=01ec8363"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

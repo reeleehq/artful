@@ -1,4 +1,4 @@
-> built 2026-10-26 22:05 UTC from f65c439 (main) · artful 0.0.17. Details: build_info.json
+> built 2026-11-08 21:59 UTC from 6501baa (main) · artful 0.0.18. Details: build_info.json
 
 # index.html.md
 
@@ -380,6 +380,8 @@ Public surface:
 | [`load_shot_schedules`](_autosummary/artful.html.md#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                  |
 | [`load_storyboard`](_autosummary/artful.html.md#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard).             |
 | [`new_panel_id`](_autosummary/artful.html.md#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                  |
+| [`is_valid_panel_id`](_autosummary/artful.html.md#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry.                                                          |
+| [`check_panel_id`](_autosummary/artful.html.md#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](_autosummary/artful.html.md#artful.is_valid_panel_id), else `ValueError` naming the rule. |
 | [`new_schedule_id`](_autosummary/artful.html.md#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                             |
 | [`new_shot_id`](_autosummary/artful.html.md#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                  |
 | [`panel_intervals_from_panels`](_autosummary/artful.html.md#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](_autosummary/artful.html.md#artful.save_storyboard). |
@@ -527,6 +529,13 @@ Bases: `BaseModel`
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+### artful.check_panel_id(value)
+
+`value` if [`is_valid_panel_id()`](_autosummary/artful.html.md#artful.is_valid_panel_id), else `ValueError` naming the rule.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
 ### artful.from_markdown(text)
 
 Parse [`to_markdown()`](_autosummary/artful.html.md#artful.to_markdown)’s output back into a Storyboard + intervals.
@@ -537,6 +546,20 @@ no entry in the intervals dict (caller can pin them later).
 
 * **Return type:**
   [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[`Storyboard`](_autosummary/artful.schema.html.md#artful.schema.Storyboard), [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str), `TimeInterval`]]
+
+### artful.is_valid_panel_id(value)
+
+Whether `value` is a panel id every panel route can carry.
+
+```pycon
+>>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
+(True, True, True)
+>>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
+(False, False, False, False)
+```
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### artful.load_shot_schedule(store, , asset_id, schedule_id=None, tier='shot-schedule')
 
@@ -700,20 +723,24 @@ plan that drives the renderer. Use cases:
 
 ### Module Attributes
 
-| [`ReviewStatus`](_autosummary/artful.schema.html.md#artful.schema.ReviewStatus)    | Review status of a storyboard panel.                             |
-|------------------------------------------------------------------|------------------------------------------------------------------|
-| [`MomentHeuristic`](_autosummary/artful.schema.html.md#artful.schema.MomentHeuristic) | Spec §7.2 iconic-frame heuristics.                               |
-| [`MomentTiming`](_autosummary/artful.schema.html.md#artful.schema.MomentTiming)    | Spec §7.2 — where in the implied motion the depicted frame sits. |
-| [`ShotSize`](_autosummary/artful.schema.html.md#artful.schema.ShotSize)        | Spec §6.3 shot-size taxonomy.                                    |
-| [`Angle`](_autosummary/artful.schema.html.md#artful.schema.Angle)           | Spec §6.3 / §9.3 angle taxonomy.                                 |
-| [`Movement`](_autosummary/artful.schema.html.md#artful.schema.Movement)        | Spec §6.3 movement taxonomy.                                     |
-| [`DurationSource`](_autosummary/artful.schema.html.md#artful.schema.DurationSource)  | Spec §7.5 — provenance of a panel's duration field.              |
-| [`ImageUrlMap`](_autosummary/artful.schema.html.md#artful.schema.ImageUrlMap)     | Canonical model-sheet views (spec §7.4 conventions).             |
+| [`ReviewStatus`](_autosummary/artful.schema.html.md#artful.schema.ReviewStatus)     | Review status of a storyboard panel.                                                                                                                                                                                    |
+|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`MomentHeuristic`](_autosummary/artful.schema.html.md#artful.schema.MomentHeuristic)  | Spec §7.2 iconic-frame heuristics.                                                                                                                                                                                      |
+| [`MomentTiming`](_autosummary/artful.schema.html.md#artful.schema.MomentTiming)     | Spec §7.2 — where in the implied motion the depicted frame sits.                                                                                                                                                        |
+| [`ShotSize`](_autosummary/artful.schema.html.md#artful.schema.ShotSize)         | Spec §6.3 shot-size taxonomy.                                                                                                                                                                                           |
+| [`Angle`](_autosummary/artful.schema.html.md#artful.schema.Angle)            | Spec §6.3 / §9.3 angle taxonomy.                                                                                                                                                                                        |
+| [`Movement`](_autosummary/artful.schema.html.md#artful.schema.Movement)         | Spec §6.3 movement taxonomy.                                                                                                                                                                                            |
+| [`DurationSource`](_autosummary/artful.schema.html.md#artful.schema.DurationSource)   | Spec §7.5 — provenance of a panel's duration field.                                                                                                                                                                     |
+| [`PANEL_ID_PATTERN`](_autosummary/artful.schema.html.md#artful.schema.PANEL_ID_PATTERN) | A panel id is one URL path segment on every panel route a host serves (`/panels/{panel_id}/…`), and hosts derive file names from it, so it is a slug: ASCII letters, digits and `._-`, starting with a letter or digit. |
+| [`STORED_PANEL`](_autosummary/artful.schema.html.md#artful.schema.STORED_PANEL)     | The validation context for reading a STORED panel body back: `PanelBody.model_validate(body, context=STORED_PANEL)`.                                                                                                    |
+| [`ImageUrlMap`](_autosummary/artful.schema.html.md#artful.schema.ImageUrlMap)      | Canonical model-sheet views (spec §7.4 conventions).                                                                                                                                                                    |
 
 ### Functions
 
-| [`new_panel_id`](_autosummary/artful.schema.html.md#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).   |
-|---------------------------------------------------------------------------|------------------------------------------------------|
+| [`check_panel_id`](_autosummary/artful.schema.html.md#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.   |
+|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| [`is_valid_panel_id`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry.                                                            |
+| [`new_panel_id`](_autosummary/artful.schema.html.md#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                    |
 
 ### Classes
 
@@ -779,6 +806,15 @@ Spec §6.3 movement taxonomy. `LOCKED` is the default in practice.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘LOCKED’, ‘PAN’, ‘TILT’, ‘DOLLY_IN’, ‘DOLLY_OUT’, ‘TRUCK’, ‘PEDESTAL’, ‘ZOOM’, ‘CRANE’, ‘HANDHELD’, ‘WHIP_PAN’, ‘DOLLY_ZOOM’]
 
+### artful.schema.PANEL_ID_PATTERN *= '[A-Za-z0-9][A-Za-z0-9._-]\*'*
+
+A panel id is one URL path segment on every panel route a host serves
+(`/panels/{panel_id}/…`), and hosts derive file names from it, so it is a
+slug: ASCII letters, digits and `._-`, starting with a letter or digit. That
+excludes `/` (`%2F` is decoded before routing), and the `.` / `..`
+segments clients collapse (reeleehq/reelee#930). Minted ids
+([`new_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.new_panel_id)) satisfy it.
+
 ### *class* artful.schema.PanelBody(\*, panel_id, shot_id=None, images=<factory>, caption='', framing='', camera='', transition_in='cut', notes='', review_status='unreviewed', active_image_index=0, moment_caption=None, moment_heuristic=None, moment_timing=None, moment_focal_character_ref=None, split_from_beat_id=None, split_index=None, split_total=None, split_reason=None, shot_size=None, angle=None, movement=None, duration_seconds_estimate=None, duration_source=None, duration_confidence=None, duration_model_version=None)
 
 Bases: `BaseModel`
@@ -820,6 +856,14 @@ files without the field get the default).
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘unreviewed’, ‘approved’, ‘needs-revision’, ‘rejected’]
 
+### artful.schema.STORED_PANEL *= mappingproxy({'artful.stored_panel': True})*
+
+The validation context for reading a STORED panel body back:
+`PanelBody.model_validate(body, context=STORED_PANEL)`. A stored id is not
+re-checked, so a panel written before the rule existed still loads; every other
+construction checks it. Read-only, and its key is namespaced so no other model’s
+validator reads it.
+
 ### artful.schema.ShotSize
 
 Spec §6.3 shot-size taxonomy. Controlled vocabulary — distinct from the
@@ -842,6 +886,27 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid'}*
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
+
+### artful.schema.check_panel_id(value)
+
+`value` if [`is_valid_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
+### artful.schema.is_valid_panel_id(value)
+
+Whether `value` is a panel id every panel route can carry.
+
+```pycon
+>>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
+(True, True, True)
+>>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
+(False, False, False, False)
+```
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### artful.schema.new_panel_id(prefix='p')
 
@@ -1155,16 +1220,18 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-10-26 22:05 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/f65c4393e99016ea994342007e08152de8deb2b4"><code>f65c439</code></a> on branch <code>main</code>, for **artful 0.0.17** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-08 21:59 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa</code></a> on branch <code>main</code>, for **artful 0.0.18** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.18) is behind the latest release on PyPI (0.0.19): `pip install artful` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/f65c4393e99016ea994342007e08152de8deb2b4"><code>f65c4393e99016ea994342007e08152de8deb2b4</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa267e519744a1ad0b3dd64bee6a966552a</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -1175,9 +1242,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/40409528952">40409528952</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/42527711377">42527711377</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>f65c4393e99016ea994342007e08152de8deb2b4</code> (in the history of the built commit) |
+| Event commit | <code>6501baa267e519744a1ad0b3dd64bee6a966552a</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -1186,7 +1253,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 | epythet  | 0.2.22  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.15 |
+| Python   | 3.12.16 |
 
 ## Configuration as resolved
 
@@ -1202,13 +1269,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.17/">0.0.17</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/artful/0.0.19/">0.0.19</a>, newer than the documented version (0.0.18).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout f65c4393e99016ea994342007e08152de8deb2b4
+git checkout 6501baa267e519744a1ad0b3dd64bee6a966552a
 pip install "epythet==0.2.22"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

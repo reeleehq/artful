@@ -13,6 +13,8 @@
       load_shot_schedules
       load_storyboard
       new_panel_id
+      is_valid_panel_id
+      check_panel_id
       new_schedule_id
       new_shot_id
       panel_intervals_from_panels

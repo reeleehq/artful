@@ -274,10 +274,12 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_re</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">types</span><span class="w"> </span><span class="kn">import</span> <span class="n">MappingProxyType</span> <span class="k">as</span> <span class="n">_MappingProxyType</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">TypeVar</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ConfigDict</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">ValidationInfo</span><span class="p">,</span> <span class="n">field_validator</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">lacing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Derived</span><span class="p">,</span> <span class="n">Location</span><span class="p">,</span> <span class="n">register_body_schema</span>
 
@@ -426,6 +428,58 @@
 
 
 
+<span class="c1">#: A panel id is one URL path segment on every panel route a host serves</span>
+<span class="c1">#: (``/panels/{panel_id}/…``), and hosts derive file names from it, so it is a</span>
+<span class="c1">#: slug: ASCII letters, digits and ``._-``, starting with a letter or digit. That</span>
+<span class="c1">#: excludes ``/`` (``%2F`` is decoded before routing), and the ``.`` / ``..``</span>
+<span class="c1">#: segments clients collapse (reeleehq/reelee#930). Minted ids</span>
+<span class="c1">#: (:func:`new_panel_id`) satisfy it.</span>
+<span class="n">PANEL_ID_PATTERN</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"[A-Za-z0-9][A-Za-z0-9._-]*"</span>
+<span class="n">MAX_PANEL_ID_LENGTH</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">_PANEL_ID_RE</span> <span class="o">=</span> <span class="n">_re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">PANEL_ID_PATTERN</span><span class="p">)</span>
+
+<span class="n">_STORED_PANEL_KEY</span> <span class="o">=</span> <span class="s2">"artful.stored_panel"</span>
+
+<span class="c1">#: The validation context for reading a STORED panel body back:</span>
+<span class="c1">#: ``PanelBody.model_validate(body, context=STORED_PANEL)``. A stored id is not</span>
+<span class="c1">#: re-checked, so a panel written before the rule existed still loads; every other</span>
+<span class="c1">#: construction checks it. Read-only, and its key is namespaced so no other model's</span>
+<span class="c1">#: validator reads it.</span>
+<span class="n">STORED_PANEL</span> <span class="o">=</span> <span class="n">_MappingProxyType</span><span class="p">({</span><span class="n">_STORED_PANEL_KEY</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+
+
+<div class="viewcode-block" id="is_valid_panel_id">
+<a class="viewcode-back" href="../../_autosummary/artful.schema.html#artful.is_valid_panel_id">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_valid_panel_id</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Whether ``value`` is a panel id every panel route can carry.</span>
+
+<span class="sd">    &gt;&gt;&gt; is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")</span>
+<span class="sd">    (True, True, True)</span>
+<span class="sd">    &gt;&gt;&gt; is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)</span>
+<span class="sd">    (False, False, False, False)</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">MAX_PANEL_ID_LENGTH</span>
+        <span class="ow">and</span> <span class="n">_PANEL_ID_RE</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="check_panel_id">
+<a class="viewcode-back" href="../../_autosummary/artful.schema.html#artful.check_panel_id">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_panel_id</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""``value`` if :func:`is_valid_panel_id`, else ``ValueError`` naming the rule."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"panel id </span><span class="si">{</span><span class="n">value</span><span class="si">!r}</span><span class="s2"> refused: a panel id uses ASCII letters, digits and "</span>
+            <span class="sa">f</span><span class="s2">"'._-', starts with a letter or digit, and is at most "</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">MAX_PANEL_ID_LENGTH</span><span class="si">}</span><span class="s2"> characters"</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+
 <div class="viewcode-block" id="PanelBody">
 <a class="viewcode-back" href="../../_autosummary/artful.schema.html#artful.PanelBody">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PanelBody</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -443,8 +497,13 @@
 
     <span class="n">panel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="o">...</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">"Stable id within a storyboard. Distinct from the annotation id."</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">"Stable id within a storyboard. Distinct from the annotation id. A slug "</span>
+            <span class="s2">"(ASCII letters, digits and ._-, starting alphanumeric), so every panel "</span>
+            <span class="s2">"route can carry it."</span>
+        <span class="p">),</span>
     <span class="p">)</span>
+
     <span class="n">shot_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="kc">None</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
@@ -606,7 +665,14 @@
             <span class="s2">"Version of the duration model that produced the estimate, "</span>
             <span class="s2">"for cache-busting when the model changes."</span>
         <span class="p">),</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
+
+    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">"panel_id"</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_panel_id_is_a_slug</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">info</span><span class="p">:</span> <span class="n">ValidationInfo</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">context</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">_STORED_PANEL_KEY</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>  <span class="c1"># reading back what is already stored (STORED_PANEL)</span>
+        <span class="k">return</span> <span class="n">check_panel_id</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
 
@@ -790,7 +856,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=a39b7224"></script>
+</div><script src="../../_static/documentation_options.js?v=01ec8363"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

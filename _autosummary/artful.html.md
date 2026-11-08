@@ -38,6 +38,8 @@ Public surface:
 | [`load_shot_schedules`](#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                  |
 | [`load_storyboard`](#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](#artful.Storyboard).             |
 | [`new_panel_id`](#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                  |
+| [`is_valid_panel_id`](#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry.                                                          |
+| [`check_panel_id`](#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](#artful.is_valid_panel_id), else `ValueError` naming the rule. |
 | [`new_schedule_id`](#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                             |
 | [`new_shot_id`](#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                  |
 | [`panel_intervals_from_panels`](#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](#artful.save_storyboard). |
@@ -185,6 +187,13 @@ Bases: `BaseModel`
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+### artful.check_panel_id(value)
+
+`value` if [`is_valid_panel_id()`](#artful.is_valid_panel_id), else `ValueError` naming the rule.
+
+* **Return type:**
+  [`str`](https://docs.python.org/3/builtins/stdtypes.html#str)
+
 ### artful.from_markdown(text)
 
 Parse [`to_markdown()`](#artful.to_markdown)’s output back into a Storyboard + intervals.
@@ -195,6 +204,20 @@ no entry in the intervals dict (caller can pin them later).
 
 * **Return type:**
   [`tuple`](https://docs.python.org/3/builtins/stdtypes.html#tuple)[[`Storyboard`](artful.schema.html.md#artful.schema.Storyboard), [`dict`](https://docs.python.org/3/builtins/stdtypes.html#dict)[[`str`](https://docs.python.org/3/builtins/stdtypes.html#str), `TimeInterval`]]
+
+### artful.is_valid_panel_id(value)
+
+Whether `value` is a panel id every panel route can carry.
+
+```pycon
+>>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
+(True, True, True)
+>>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
+(False, False, False, False)
+```
+
+* **Return type:**
+  [`bool`](https://docs.python.org/3/builtins/functions.html#bool)
 
 ### artful.load_shot_schedule(store, , asset_id, schedule_id=None, tier='shot-schedule')
 
