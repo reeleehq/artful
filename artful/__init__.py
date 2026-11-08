@@ -33,6 +33,9 @@ from .exports import from_markdown, to_html, to_markdown
 from .schema import (
     MODEL_SHEET_BODY_SCHEMA_URI,
     PANEL_BODY_SCHEMA_URI,
+    PANEL_ID_PATTERN,
+    MAX_PANEL_ID_LENGTH,
+    STORED_PANEL,
     Angle,
     DurationSource,
     ModelSheet,
@@ -44,6 +47,8 @@ from .schema import (
     PanelImage,
     ShotSize,
     Storyboard,
+    check_panel_id,
+    is_valid_panel_id,
     new_panel_id,
 )
 from .shot_schedule import (
@@ -96,6 +101,11 @@ __all__ = [
     "load_shot_schedules",
     "load_storyboard",
     "new_panel_id",
+    "is_valid_panel_id",
+    "check_panel_id",
+    "PANEL_ID_PATTERN",
+    "MAX_PANEL_ID_LENGTH",
+    "STORED_PANEL",
     "new_schedule_id",
     "new_shot_id",
     "panel_intervals_from_panels",
