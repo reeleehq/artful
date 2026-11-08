@@ -404,3 +404,15 @@ def test_a_stored_panel_with_a_legacy_id_still_loads():
     from artful import STORED_PANEL, PanelBody
 
     assert PanelBody.model_validate({"panel_id": "x/y"}, context=STORED_PANEL).panel_id == "x/y"
+
+
+def test_the_stored_context_is_read_only_and_only_its_own_key_skips_the_check():
+    from pydantic import ValidationError
+
+    from artful import STORED_PANEL, PanelBody
+
+    with pytest.raises(TypeError):
+        STORED_PANEL["artful.stored_panel"] = False  # type: ignore[index]
+    for context in ({"stored": True}, {"artful.stored_panel": "yes"}):
+        with pytest.raises(ValidationError, match="panel id"):
+            PanelBody.model_validate({"panel_id": "x/y"}, context=context)

@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import re as _re
 import uuid as _uuid
+from types import MappingProxyType as _MappingProxyType
 from typing import Annotated, Literal, Optional, TypeVar
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
@@ -188,11 +189,14 @@ PANEL_ID_PATTERN = r"[A-Za-z0-9][A-Za-z0-9._-]*"
 MAX_PANEL_ID_LENGTH = 255
 _PANEL_ID_RE = _re.compile(PANEL_ID_PATTERN)
 
+_STORED_PANEL_KEY = "artful.stored_panel"
+
 #: The validation context for reading a STORED panel body back:
 #: ``PanelBody.model_validate(body, context=STORED_PANEL)``. A stored id is not
-#: re-checked, so a panel written before the rule existed still loads (to be
-#: renamed); every other construction checks it.
-STORED_PANEL = {"stored": True}
+#: re-checked, so a panel written before the rule existed still loads; every other
+#: construction checks it. Read-only, and its key is namespaced so no other model's
+#: validator reads it.
+STORED_PANEL = _MappingProxyType({_STORED_PANEL_KEY: True})
 
 
 def is_valid_panel_id(value) -> bool:
@@ -238,16 +242,11 @@ class PanelBody(BaseModel):
         ...,
         description=(
             "Stable id within a storyboard. Distinct from the annotation id. A slug "
-            "(PANEL_ID_PATTERN), so every panel route can carry it."
+            "(ASCII letters, digits and ._-, starting alphanumeric), so every panel "
+            "route can carry it."
         ),
     )
 
-    @field_validator("panel_id")
-    @classmethod
-    def _panel_id_is_a_slug(cls, value: str, info: ValidationInfo) -> str:
-        if (info.context or {}).get("stored"):
-            return value  # reading back what is already stored (STORED_PANEL)
-        return check_panel_id(value)
     shot_id: Optional[str] = Field(
         None,
         description=(
@@ -410,6 +409,13 @@ class PanelBody(BaseModel):
             "for cache-busting when the model changes."
         ),
     )
+
+    @field_validator("panel_id")
+    @classmethod
+    def _panel_id_is_a_slug(cls, value: str, info: ValidationInfo) -> str:
+        if (info.context or {}).get(_STORED_PANEL_KEY) is True:
+            return value  # reading back what is already stored (STORED_PANEL)
+        return check_panel_id(value)
 
 
 class Storyboard(BaseModel):
