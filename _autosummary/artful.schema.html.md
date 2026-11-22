@@ -194,6 +194,13 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+#### panel(panel_id)
+
+Return the panel with `panel_id`, or `None` if there is none.
+
+* **Return type:**
+  [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PanelBody`](#artful.schema.PanelBody)]
+
 ### artful.schema.check_panel_id(value)
 
 `value` if [`is_valid_panel_id()`](#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.

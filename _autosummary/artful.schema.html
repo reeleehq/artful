@@ -514,6 +514,17 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 <dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="artful.schema.Storyboard.panel">
+<span class="sig-name descname"><span class="pre">panel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">panel_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#Storyboard.panel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.schema.Storyboard.panel" title="Link to this definition">¶</a></dt>
+<dd><p>Return the panel with <code class="docutils literal notranslate"><span class="pre">panel_id</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if there is none.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.15)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#artful.schema.PanelBody" title="artful.schema.PanelBody"><code class="xref py py-class docutils literal notranslate"><span class="pre">PanelBody</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -633,6 +644,7 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 <li><a class="reference internal" href="#artful.schema.ShotSize"><code class="docutils literal notranslate"><span class="pre">ShotSize</span></code></a></li>
 <li><a class="reference internal" href="#artful.schema.Storyboard"><code class="docutils literal notranslate"><span class="pre">Storyboard</span></code></a><ul>
 <li><a class="reference internal" href="#artful.schema.Storyboard.model_config"><code class="docutils literal notranslate"><span class="pre">Storyboard.model_config</span></code></a></li>
+<li><a class="reference internal" href="#artful.schema.Storyboard.panel"><code class="docutils literal notranslate"><span class="pre">Storyboard.panel()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#artful.schema.check_panel_id"><code class="docutils literal notranslate"><span class="pre">check_panel_id()</span></code></a></li>
@@ -649,7 +661,7 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=a8acf705"></script>
+</div><script src="../_static/documentation_options.js?v=7c40b9fe"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

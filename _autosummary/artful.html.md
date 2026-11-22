@@ -58,7 +58,7 @@ Public surface:
 | [`ShotEntry`](#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
 | [`ShotScheduleBody`](#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
 | [`Storyboard`](#artful.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
-| [`StoryboardMetaBody`](#artful.StoryboardMetaBody)(\*[, title, style, aspect])      |                                                                                                                       |
+| [`StoryboardMetaBody`](#artful.StoryboardMetaBody)(\*[, title, style, aspect])      | Body of the annotation that stores a storyboard's title, style and aspect.                                            |
 
 ### *class* artful.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
@@ -179,9 +179,18 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+#### panel(panel_id)
+
+Return the panel with `panel_id`, or `None` if there is none.
+
+* **Return type:**
+  [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PanelBody`](artful.schema.html.md#artful.schema.PanelBody)]
+
 ### *class* artful.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
+
+Body of the annotation that stores a storyboard’s title, style and aspect.
 
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 

@@ -28,12 +28,14 @@ unchanged. Apps add storyboard semantics by reading panels via
 
 ### Classes
 
-| [`StoryboardMetaBody`](#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   |    |
-|---------------------------------------------------------------------------------------------------|----|
+| [`StoryboardMetaBody`](#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   | Body of the annotation that stores a storyboard's title, style and aspect.   |
+|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 
 ### *class* artful.store.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
+
+Body of the annotation that stores a storyboard’s title, style and aspect.
 
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 

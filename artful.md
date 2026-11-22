@@ -1,4 +1,4 @@
-> built 2026-11-22 13:48 UTC from 637905b (main) · artful 0.0.19. Details: build_info.json
+> built 2026-11-22 22:23 UTC from 5035f0e (main) · artful 0.0.20. Details: build_info.json
 
 # index.html.md
 
@@ -400,7 +400,7 @@ Public surface:
 | [`ShotEntry`](_autosummary/artful.html.md#artful.ShotEntry)(\*, shot_id[, panel_id, beat_id, ...])    | One row of a shot schedule: what to shoot, and what bounds it.                                                        |
 | [`ShotScheduleBody`](_autosummary/artful.html.md#artful.ShotScheduleBody)(\*, schedule_id[, title, ...])     | The body of a shot-schedule annotation — the ordered shot list.                                                       |
 | [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard)(\*[, title, panels, style, aspect])      | A typed view over a sequence of panel annotations.                                                                    |
-| [`StoryboardMetaBody`](_autosummary/artful.html.md#artful.StoryboardMetaBody)(\*[, title, style, aspect])      |                                                                                                                       |
+| [`StoryboardMetaBody`](_autosummary/artful.html.md#artful.StoryboardMetaBody)(\*[, title, style, aspect])      | Body of the annotation that stores a storyboard's title, style and aspect.                                            |
 
 ### *class* artful.ModelSheet(\*, character_ref_id, sheet_id, canonical_views=<factory>, expression_set=<factory>, costume_set=<factory>, palette_anchors=<factory>, distinguishing_features=<factory>, head_to_body_ratio=None, do_not_do=<factory>, age_progression=<factory>, prop_interactions=<factory>, voice_personality_notes=None)
 
@@ -521,9 +521,18 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+#### panel(panel_id)
+
+Return the panel with `panel_id`, or `None` if there is none.
+
+* **Return type:**
+  [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PanelBody`](_autosummary/artful.schema.html.md#artful.schema.PanelBody)]
+
 ### *class* artful.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
+
+Body of the annotation that stores a storyboard’s title, style and aspect.
 
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 
@@ -891,6 +900,13 @@ writing each panel as a lacing `Annotation`. Use the helpers in
 
 Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict].
 
+#### panel(panel_id)
+
+Return the panel with `panel_id`, or `None` if there is none.
+
+* **Return type:**
+  [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`PanelBody`](_autosummary/artful.schema.html.md#artful.schema.PanelBody)]
+
 ### artful.schema.check_panel_id(value)
 
 `value` if [`is_valid_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.
@@ -1158,12 +1174,14 @@ unchanged. Apps add storyboard semantics by reading panels via
 
 ### Classes
 
-| [`StoryboardMetaBody`](_autosummary/artful.store.html.md#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   |    |
-|---------------------------------------------------------------------------------------------------|----|
+| [`StoryboardMetaBody`](_autosummary/artful.store.html.md#artful.store.StoryboardMetaBody)(\*[, title, style, aspect])   | Body of the annotation that stores a storyboard's title, style and aspect.   |
+|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 
 ### *class* artful.store.StoryboardMetaBody(, title='', style='', aspect='16:9')
 
 Bases: `BaseModel`
+
+Body of the annotation that stores a storyboard’s title, style and aspect.
 
 #### model_config *: [ClassVar](https://docs.python.org/3/library/typing.html#typing.ClassVar)[ConfigDict]* *= {'extra': 'forbid', 'frozen': True}*
 
@@ -1227,7 +1245,7 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-11-22 13:48 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/637905bbe2898dc3d033194cb38353d89b3f4735"><code>637905b</code></a> on branch <code>main</code>, for **artful 0.0.19** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-22 22:23 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/5035f0ed1f8c68ce41b041465b7f405392a4c680"><code>5035f0e</code></a> on branch <code>main</code>, for **artful 0.0.20** (from <code>pyproject.toml</code>).
 
 #### NOTE
 Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
@@ -1236,7 +1254,7 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/637905bbe2898dc3d033194cb38353d89b3f4735"><code>637905bbe2898dc3d033194cb38353d89b3f4735</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/5035f0ed1f8c68ce41b041465b7f405392a4c680"><code>5035f0ed1f8c68ce41b041465b7f405392a4c680</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -1247,9 +1265,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45029254209">45029254209</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45077356102">45077356102</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>637905bbe2898dc3d033194cb38353d89b3f4735</code> (in the history of the built commit) |
+| Event commit | <code>5035f0ed1f8c68ce41b041465b7f405392a4c680</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -1274,13 +1292,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.19/">0.0.19</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/artful/0.0.20/">0.0.20</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 637905bbe2898dc3d033194cb38353d89b3f4735
+git checkout 5035f0ed1f8c68ce41b041465b7f405392a4c680
 pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

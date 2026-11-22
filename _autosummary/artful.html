@@ -358,7 +358,7 @@ models for in-memory work.</p></li>
 <td><p>A typed view over a sequence of panel annotations.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#artful.StoryboardMetaBody" title="artful.StoryboardMetaBody"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code></a>(*[, title, style, aspect])</p></td>
-<td><p></p></td>
+<td><p>Body of the annotation that stores a storyboard's title, style and aspect.</p></td>
 </tr>
 </tbody>
 </table>
@@ -512,12 +512,24 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 <dd><p>Configuration for the model, should be a dictionary conforming to [<code class="code docutils literal notranslate"><span class="pre">ConfigDict</span></code>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="artful.Storyboard.panel">
+<span class="sig-name descname"><span class="pre">panel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">panel_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#Storyboard.panel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.Storyboard.panel" title="Link to this definition">¶</a></dt>
+<dd><p>Return the panel with <code class="docutils literal notranslate"><span class="pre">panel_id</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if there is none.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.15)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="artful.schema.html#artful.schema.PanelBody" title="artful.schema.PanelBody"><code class="xref py py-class docutils literal notranslate"><span class="pre">PanelBody</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="artful.StoryboardMetaBody">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">artful.</span></span><span class="sig-name descname"><span class="pre">StoryboardMetaBody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aspect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'16:9'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/store.html#StoryboardMetaBody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.StoryboardMetaBody" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Body of the annotation that stores a storyboard’s title, style and aspect.</p>
 <dl class="field-list simple">
 </dl>
 <dl class="py attribute">
@@ -841,6 +853,7 @@ the intervals haven’t been pinned yet.</p>
 </li>
 <li><a class="reference internal" href="#artful.Storyboard"><code class="docutils literal notranslate"><span class="pre">Storyboard</span></code></a><ul>
 <li><a class="reference internal" href="#artful.Storyboard.model_config"><code class="docutils literal notranslate"><span class="pre">Storyboard.model_config</span></code></a></li>
+<li><a class="reference internal" href="#artful.Storyboard.panel"><code class="docutils literal notranslate"><span class="pre">Storyboard.panel()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#artful.StoryboardMetaBody"><code class="docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code></a><ul>
@@ -872,7 +885,7 @@ the intervals haven’t been pinned yet.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=a8acf705"></script>
+</div><script src="../_static/documentation_options.js?v=7c40b9fe"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
