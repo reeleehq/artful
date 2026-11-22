@@ -492,7 +492,8 @@ validator reads it.</p>
 <span class="sig-prename descclassname"><span class="pre">artful.schema.</span></span><span class="sig-name descname"><span class="pre">ShotSize</span></span><a class="headerlink" href="#artful.schema.ShotSize" title="Link to this definition">¶</a></dt>
 <dd><p>Spec §6.3 shot-size taxonomy. Controlled vocabulary — distinct from the
 free-text <code class="xref py py-attr docutils literal notranslate"><span class="pre">PanelBody.framing</span></code> field. This is the single source of truth
-for the storyboard-panel schema; <code class="docutils literal notranslate"><span class="pre">reelee.bodies.shot</span></code> re-exports these so the
+for the storyboard-panel schema; its consumers (<code class="docutils literal notranslate"><span class="pre">reelee.bodies.panel_draft</span></code>,
+<code class="docutils literal notranslate"><span class="pre">reelee.transforms.beat_to_panel</span></code>) import these vocabularies from here, so the
 shot-grammar advisor and the panel body share one vocabulary.</p>
 <p>alias of <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code></a>[‘ECU’, ‘CU’, ‘MCU’, ‘MS’, ‘MWS’, ‘WS’, ‘LS’, ‘ELS’, ‘INSERT’, ‘TWO_SHOT’, ‘THREE_SHOT’, ‘GROUP’, ‘MASTER’]</p>
 </dd></dl>
@@ -648,7 +649,7 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=01ec8363"></script>
+</div><script src="../_static/documentation_options.js?v=a8acf705"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

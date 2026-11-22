@@ -476,9 +476,12 @@ does.</p>
 <dt class="sig sig-object py" id="artful.shot_schedule.load_shot_schedule">
 <span class="sig-prename descclassname"><span class="pre">artful.shot_schedule.</span></span><span class="sig-name descname"><span class="pre">load_shot_schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">asset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schedule_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'shot-schedule'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/shot_schedule.html#load_shot_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.shot_schedule.load_shot_schedule" title="Link to this definition">¶</a></dt>
 <dd><p>One schedule, or None when there is no match.</p>
-<p>With <code class="docutils literal notranslate"><span class="pre">schedule_id</span></code> given, returns that schedule. Without it, returns
-the first schedule found for <code class="docutils literal notranslate"><span class="pre">asset_id</span></code> / <code class="docutils literal notranslate"><span class="pre">tier</span></code> — convenient for
-the common one-schedule-per-asset case.</p>
+<p>Saves append (see <a class="reference internal" href="#artful.shot_schedule.save_shot_schedule" title="artful.shot_schedule.save_shot_schedule"><code class="xref py py-func docutils literal notranslate"><span class="pre">save_shot_schedule()</span></code></a>), so a store can hold
+several revisions of one schedule. This returns the <strong>latest</strong> match:
+the last one in store order. With <code class="docutils literal notranslate"><span class="pre">schedule_id</span></code> given, the latest
+revision of that schedule; without it, the latest schedule for
+<code class="docutils literal notranslate"><span class="pre">asset_id</span></code> / <code class="docutils literal notranslate"><span class="pre">tier</span></code> — convenient for the one-schedule-per-asset
+case. Use <a class="reference internal" href="#artful.shot_schedule.load_shot_schedules" title="artful.shot_schedule.load_shot_schedules"><code class="xref py py-func docutils literal notranslate"><span class="pre">load_shot_schedules()</span></code></a> to see every revision.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.15)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#artful.shot_schedule.ShotScheduleBody" title="artful.shot_schedule.ShotScheduleBody"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShotScheduleBody</span></code></a>]</span></p>
@@ -635,7 +638,7 @@ to tell revisions apart on load.</p>
       
     </aside>
   </div>
-</div><script src="../_static/documentation_options.js?v=01ec8363"></script>
+</div><script src="../_static/documentation_options.js?v=a8acf705"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/furo.js?v=46bd48cc"></script>

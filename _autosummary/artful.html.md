@@ -223,9 +223,12 @@ Whether `value` is a panel id every panel route can carry.
 
 One schedule, or None when there is no match.
 
-With `schedule_id` given, returns that schedule. Without it, returns
-the first schedule found for `asset_id` / `tier` — convenient for
-the common one-schedule-per-asset case.
+Saves append (see [`save_shot_schedule()`](#artful.save_shot_schedule)), so a store can hold
+several revisions of one schedule. This returns the **latest** match:
+the last one in store order. With `schedule_id` given, the latest
+revision of that schedule; without it, the latest schedule for
+`asset_id` / `tier` — convenient for the one-schedule-per-asset
+case. Use [`load_shot_schedules()`](#artful.load_shot_schedules) to see every revision.
 
 * **Return type:**
   [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ShotScheduleBody`](artful.shot_schedule.html.md#artful.shot_schedule.ShotScheduleBody)]

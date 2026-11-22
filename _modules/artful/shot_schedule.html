@@ -713,14 +713,18 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ShotScheduleBody</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""One schedule, or None when there is no match.</span>
 
-<span class="sd">    With ``schedule_id`` given, returns that schedule. Without it, returns</span>
-<span class="sd">    the first schedule found for ``asset_id`` / ``tier`` — convenient for</span>
-<span class="sd">    the common one-schedule-per-asset case.</span>
+<span class="sd">    Saves append (see :func:`save_shot_schedule`), so a store can hold</span>
+<span class="sd">    several revisions of one schedule. This returns the **latest** match:</span>
+<span class="sd">    the last one in store order. With ``schedule_id`` given, the latest</span>
+<span class="sd">    revision of that schedule; without it, the latest schedule for</span>
+<span class="sd">    ``asset_id`` / ``tier`` — convenient for the one-schedule-per-asset</span>
+<span class="sd">    case. Use :func:`load_shot_schedules` to see every revision.</span>
 <span class="sd">    """</span>
+    <span class="n">latest</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">sched</span> <span class="ow">in</span> <span class="n">_iter_schedules</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">asset_id</span><span class="o">=</span><span class="n">asset_id</span><span class="p">,</span> <span class="n">tier</span><span class="o">=</span><span class="n">tier</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">schedule_id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">sched</span><span class="o">.</span><span class="n">schedule_id</span> <span class="o">==</span> <span class="n">schedule_id</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">sched</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="n">latest</span> <span class="o">=</span> <span class="n">sched</span>
+    <span class="k">return</span> <span class="n">latest</span></div>
 
 
 
@@ -770,7 +774,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=01ec8363"></script>
+</div><script src="../../_static/documentation_options.js?v=a8acf705"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>

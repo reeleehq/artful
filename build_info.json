@@ -1,36 +1,36 @@
 {
   "schema_version": 1,
-  "built_at": "2026-11-08T21:59:39Z",
+  "built_at": "2026-11-22T13:48:06Z",
   "package": {
     "name": "artful",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "display_name": "artful",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "6501baa267e519744a1ad0b3dd64bee6a966552a",
-    "short_commit": "6501baa",
+    "commit": "637905bbe2898dc3d033194cb38353d89b3f4735",
+    "short_commit": "637905b",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/reeleehq/artful",
-    "commit_url": "https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a",
+    "commit_url": "https://github.com/reeleehq/artful/commit/637905bbe2898dc3d033194cb38353d89b3f4735",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "reeleehq/artful",
-    "sha": "6501baa267e519744a1ad0b3dd64bee6a966552a",
+    "sha": "637905bbe2898dc3d033194cb38353d89b3f4735",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "42527711377",
-    "run_url": "https://github.com/reeleehq/artful/actions/runs/42527711377",
+    "run_id": "45029254209",
+    "run_url": "https://github.com/reeleehq/artful/actions/runs/45029254209",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.22",
+    "epythet": "0.2.23",
     "sphinx": "9.1.1",
     "docutils": "0.22.4",
     "python": "3.12.16"
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.0.19",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout 6501baa267e519744a1ad0b3dd64bee6a966552a\npip install \"epythet==0.2.22\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout 637905bbe2898dc3d033194cb38353d89b3f4735\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.18) is behind the latest release on PyPI (0.0.19): `pip install artful` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }

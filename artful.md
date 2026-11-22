@@ -1,4 +1,4 @@
-> built 2026-11-08 21:59 UTC from 6501baa (main) · artful 0.0.18. Details: build_info.json
+> built 2026-11-22 13:48 UTC from 637905b (main) · artful 0.0.19. Details: build_info.json
 
 # index.html.md
 
@@ -565,9 +565,12 @@ Whether `value` is a panel id every panel route can carry.
 
 One schedule, or None when there is no match.
 
-With `schedule_id` given, returns that schedule. Without it, returns
-the first schedule found for `asset_id` / `tier` — convenient for
-the common one-schedule-per-asset case.
+Saves append (see [`save_shot_schedule()`](_autosummary/artful.html.md#artful.save_shot_schedule)), so a store can hold
+several revisions of one schedule. This returns the **latest** match:
+the last one in store order. With `schedule_id` given, the latest
+revision of that schedule; without it, the latest schedule for
+`asset_id` / `tier` — convenient for the one-schedule-per-asset
+case. Use [`load_shot_schedules()`](_autosummary/artful.html.md#artful.load_shot_schedules) to see every revision.
 
 * **Return type:**
   [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ShotScheduleBody`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotScheduleBody)]
@@ -868,7 +871,8 @@ validator reads it.
 
 Spec §6.3 shot-size taxonomy. Controlled vocabulary — distinct from the
 free-text `PanelBody.framing` field. This is the single source of truth
-for the storyboard-panel schema; `reelee.bodies.shot` re-exports these so the
+for the storyboard-panel schema; its consumers (`reelee.bodies.panel_draft`,
+`reelee.transforms.beat_to_panel`) import these vocabularies from here, so the
 shot-grammar advisor and the panel body share one vocabulary.
 
 alias of [`Literal`](https://docs.python.org/3/library/typing.html#typing.Literal)[‘ECU’, ‘CU’, ‘MCU’, ‘MS’, ‘MWS’, ‘WS’, ‘LS’, ‘ELS’, ‘INSERT’, ‘TWO_SHOT’, ‘THREE_SHOT’, ‘GROUP’, ‘MASTER’]
@@ -1069,9 +1073,12 @@ The entry with `shot_id`, or None. Mirrors `Storyboard.panel`.
 
 One schedule, or None when there is no match.
 
-With `schedule_id` given, returns that schedule. Without it, returns
-the first schedule found for `asset_id` / `tier` — convenient for
-the common one-schedule-per-asset case.
+Saves append (see [`save_shot_schedule()`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.save_shot_schedule)), so a store can hold
+several revisions of one schedule. This returns the **latest** match:
+the last one in store order. With `schedule_id` given, the latest
+revision of that schedule; without it, the latest schedule for
+`asset_id` / `tier` — convenient for the one-schedule-per-asset
+case. Use [`load_shot_schedules()`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.load_shot_schedules) to see every revision.
 
 * **Return type:**
   [`Optional`](https://docs.python.org/3/library/typing.html#typing.Optional)[[`ShotScheduleBody`](_autosummary/artful.shot_schedule.html.md#artful.shot_schedule.ShotScheduleBody)]
@@ -1220,18 +1227,16 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-11-08 21:59 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa</code></a> on branch <code>main</code>, for **artful 0.0.18** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-22 13:48 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/637905bbe2898dc3d033194cb38353d89b3f4735"><code>637905b</code></a> on branch <code>main</code>, for **artful 0.0.19** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.18) is behind the latest release on PyPI (0.0.19): `pip install artful` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/6501baa267e519744a1ad0b3dd64bee6a966552a"><code>6501baa267e519744a1ad0b3dd64bee6a966552a</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/637905bbe2898dc3d033194cb38353d89b3f4735"><code>637905bbe2898dc3d033194cb38353d89b3f4735</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -1242,15 +1247,15 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/42527711377">42527711377</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45029254209">45029254209</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>6501baa267e519744a1ad0b3dd64bee6a966552a</code> (in the history of the built commit) |
+| Event commit | <code>637905bbe2898dc3d033194cb38353d89b3f4735</code> (in the history of the built commit) |
 
 ## Tools
 
 |          |         |
 |----------|---------|
-| epythet  | 0.2.22  |
+| epythet  | 0.2.23  |
 | Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
 | Python   | 3.12.16 |
@@ -1269,14 +1274,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.19/">0.0.19</a>, newer than the documented version (0.0.18).
+Latest release: <a href="https://pypi.org/project/artful/0.0.19/">0.0.19</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 6501baa267e519744a1ad0b3dd64bee6a966552a
-pip install "epythet==0.2.22"
+git checkout 637905bbe2898dc3d033194cb38353d89b3f4735
+pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
