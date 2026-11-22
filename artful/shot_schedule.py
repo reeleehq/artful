@@ -441,14 +441,18 @@ def load_shot_schedule(
 ) -> Optional[ShotScheduleBody]:
     """One schedule, or None when there is no match.
 
-    With ``schedule_id`` given, returns that schedule. Without it, returns
-    the first schedule found for ``asset_id`` / ``tier`` — convenient for
-    the common one-schedule-per-asset case.
+    Saves append (see :func:`save_shot_schedule`), so a store can hold
+    several revisions of one schedule. This returns the **latest** match:
+    the last one in store order. With ``schedule_id`` given, the latest
+    revision of that schedule; without it, the latest schedule for
+    ``asset_id`` / ``tier`` — convenient for the one-schedule-per-asset
+    case. Use :func:`load_shot_schedules` to see every revision.
     """
+    latest = None
     for sched in _iter_schedules(store, asset_id=asset_id, tier=tier):
         if schedule_id is None or sched.schedule_id == schedule_id:
-            return sched
-    return None
+            latest = sched
+    return latest
 
 
 def _iter_schedules(

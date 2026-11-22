@@ -87,7 +87,8 @@ ShotSize = Literal[
 ]
 """Spec §6.3 shot-size taxonomy. Controlled vocabulary — distinct from the
 free-text :attr:`PanelBody.framing` field. This is the single source of truth
-for the storyboard-panel schema; ``reelee.bodies.shot`` re-exports these so the
+for the storyboard-panel schema; its consumers (``reelee.bodies.panel_draft``,
+``reelee.transforms.beat_to_panel``) import these vocabularies from here, so the
 shot-grammar advisor and the panel body share one vocabulary."""
 
 

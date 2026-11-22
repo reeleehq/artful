@@ -402,3 +402,13 @@ def test_id_helpers_are_short_prefixed_and_unique():
     assert a != b and a.startswith("sh") and 6 <= len(a) <= 12
     c, d = new_schedule_id(), new_schedule_id()
     assert c != d and c.startswith("sch") and 7 <= len(c) <= 12
+
+
+def test_load_returns_latest_revision_of_a_schedule():
+    store = MemoryStore()
+    save_shot_schedule(ShotScheduleBody(schedule_id="s", title="old"), store, asset_id="A")
+    save_shot_schedule(ShotScheduleBody(schedule_id="other"), store, asset_id="A")
+    save_shot_schedule(ShotScheduleBody(schedule_id="s", title="new"), store, asset_id="A")
+    assert load_shot_schedule(store, asset_id="A", schedule_id="s").title == "new"
+    assert load_shot_schedule(store, asset_id="A").title == "new"
+    assert len(load_shot_schedules(store, asset_id="A")) == 3
