@@ -51,6 +51,8 @@ from pydantic import BaseModel, ConfigDict
 
 
 class StoryboardMetaBody(BaseModel):
+    """Body of the annotation that stores a storyboard's title, style and aspect."""
+
     model_config = ConfigDict(frozen=True, extra="forbid")
     title: str = ""
     style: str = ""
