@@ -442,6 +442,7 @@ class Storyboard(BaseModel):
     aspect: str = Field("16:9", description='Aspect ratio: "16:9" | "9:16" | "1:1" | …')
 
     def panel(self, panel_id: str) -> Optional[PanelBody]:
+        """Return the panel with ``panel_id``, or ``None`` if there is none."""
         for p in self.panels:
             if p.panel_id == panel_id:
                 return p
