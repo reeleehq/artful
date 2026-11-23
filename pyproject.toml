@@ -16,7 +16,7 @@ authors = [
 ]
 dependencies = [
     "pydantic>=2.6",
-    "lacing>=0.0.61",  # lacing.Derived: PanelImage.asset_id is left out of the value digest
+    "lacing>=0.0.120",  # lacing.id_slug: the panel-id rule (lacing#165); lacing.Derived: PanelImage.asset_id is left out of the value digest
 ]
 
 [project.license]
