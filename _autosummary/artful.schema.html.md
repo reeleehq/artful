@@ -43,10 +43,10 @@ plan that drives the renderer. Use cases:
 
 ### Functions
 
-| [`check_panel_id`](#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.   |
-|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`is_valid_panel_id`](#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry.                                                            |
-| [`new_panel_id`](#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                    |
+| [`check_panel_id`](#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.                        |
+|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| [`is_valid_panel_id`](#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry: the federation's one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165). |
+| [`new_panel_id`](#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                                         |
 
 ### Classes
 
@@ -210,13 +210,16 @@ Return the panel with `panel_id`, or `None` if there is none.
 
 ### artful.schema.is_valid_panel_id(value)
 
-Whether `value` is a panel id every panel route can carry.
+Whether `value` is a panel id every panel route can carry: the
+federation’s one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165).
 
 ```pycon
 >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
 (True, True, True)
 >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
 (False, False, False, False)
+>>> is_valid_panel_id("p1\n")  # a trailing newline is not a path segment
+False
 ```
 
 * **Return type:**

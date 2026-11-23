@@ -324,7 +324,7 @@ i2v / composite_lipsync seed images for downstream rendering.</p></li>
 <td><p><code class="docutils literal notranslate"><span class="pre">value</span></code> if <a class="reference internal" href="#artful.schema.is_valid_panel_id" title="artful.schema.is_valid_panel_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_valid_panel_id()</span></code></a>, else <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> naming the rule.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#artful.schema.is_valid_panel_id" title="artful.schema.is_valid_panel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid_panel_id</span></code></a>(value)</p></td>
-<td><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry.</p></td>
+<td><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry: the federation's one id-slug rule (<code class="xref py py-func docutils literal notranslate"><span class="pre">lacing.is_id_slug()</span></code>, reeleehq/lacing#165).</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#artful.schema.new_panel_id" title="artful.schema.new_panel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_panel_id</span></code></a>([prefix])</p></td>
 <td><p>Generate a fresh short panel id (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;p3f7c1&quot;</span></code>).</p></td>
@@ -541,11 +541,14 @@ writing each panel as a lacing <code class="xref py py-class docutils literal no
 <dl class="py function">
 <dt class="sig sig-object py" id="artful.schema.is_valid_panel_id">
 <span class="sig-prename descclassname"><span class="pre">artful.schema.</span></span><span class="sig-name descname"><span class="pre">is_valid_panel_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/artful/schema.html#is_valid_panel_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#artful.schema.is_valid_panel_id" title="Link to this definition">¶</a></dt>
-<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry.</p>
+<dd><p>Whether <code class="docutils literal notranslate"><span class="pre">value</span></code> is a panel id every panel route can carry: the
+federation’s one id-slug rule (<code class="xref py py-func docutils literal notranslate"><span class="pre">lacing.is_id_slug()</span></code>, reeleehq/lacing#165).</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"p3f7c1"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"p07-copy"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"1.a_b"</span><span class="p">)</span>
 <span class="go">(True, True, True)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"x/y"</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">".."</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">""</span><span class="p">),</span> <span class="n">is_valid_panel_id</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
 <span class="go">(False, False, False, False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">is_valid_panel_id</span><span class="p">(</span><span class="s2">"p1</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># a trailing newline is not a path segment</span>
+<span class="go">False</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

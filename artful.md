@@ -1,4 +1,4 @@
-> built 2026-11-22 22:23 UTC from 5035f0e (main) · artful 0.0.20. Details: build_info.json
+> built 2026-11-23 04:58 UTC from daf15a6 (main) · artful 0.0.20. Details: build_info.json
 
 # index.html.md
 
@@ -374,21 +374,21 @@ Public surface:
 
 ### Functions
 
-| [`from_markdown`](_autosummary/artful.html.md#artful.from_markdown)(text)                                | Parse [`to_markdown()`](_autosummary/artful.html.md#artful.to_markdown)'s output back into a Storyboard + intervals.   |
-|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| [`load_shot_schedule`](_autosummary/artful.html.md#artful.load_shot_schedule)(store, \*, asset_id[, ...])     | One schedule, or None when there is no match.                                                                       |
-| [`load_shot_schedules`](_autosummary/artful.html.md#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                  |
-| [`load_storyboard`](_autosummary/artful.html.md#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard).             |
-| [`new_panel_id`](_autosummary/artful.html.md#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                  |
-| [`is_valid_panel_id`](_autosummary/artful.html.md#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry.                                                          |
-| [`check_panel_id`](_autosummary/artful.html.md#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](_autosummary/artful.html.md#artful.is_valid_panel_id), else `ValueError` naming the rule. |
-| [`new_schedule_id`](_autosummary/artful.html.md#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                             |
-| [`new_shot_id`](_autosummary/artful.html.md#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                  |
-| [`panel_intervals_from_panels`](_autosummary/artful.html.md#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](_autosummary/artful.html.md#artful.save_storyboard). |
-| [`save_shot_schedule`](_autosummary/artful.html.md#artful.save_shot_schedule)(schedule, store, \*, asset_id)  | Persist `schedule` into `store` as one timeless annotation.                                                         |
-| [`save_storyboard`](_autosummary/artful.html.md#artful.save_storyboard)(storyboard, store, \*, ...[, ...]) | Persist `storyboard` into `store`.                                                                                  |
-| [`to_html`](_autosummary/artful.html.md#artful.to_html)(storyboard[, panel_intervals])             | Render a self-contained HTML contact sheet.                                                                         |
-| [`to_markdown`](_autosummary/artful.html.md#artful.to_markdown)(storyboard[, panel_intervals])         | Render `storyboard` as Markdown.                                                                                    |
+| [`from_markdown`](_autosummary/artful.html.md#artful.from_markdown)(text)                                | Parse [`to_markdown()`](_autosummary/artful.html.md#artful.to_markdown)'s output back into a Storyboard + intervals.                          |
+|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| [`load_shot_schedule`](_autosummary/artful.html.md#artful.load_shot_schedule)(store, \*, asset_id[, ...])     | One schedule, or None when there is no match.                                                                                              |
+| [`load_shot_schedules`](_autosummary/artful.html.md#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                                         |
+| [`load_storyboard`](_autosummary/artful.html.md#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](_autosummary/artful.html.md#artful.Storyboard).                                    |
+| [`new_panel_id`](_autosummary/artful.html.md#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                                         |
+| [`is_valid_panel_id`](_autosummary/artful.html.md#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry: the federation's one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165). |
+| [`check_panel_id`](_autosummary/artful.html.md#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](_autosummary/artful.html.md#artful.is_valid_panel_id), else `ValueError` naming the rule.                        |
+| [`new_schedule_id`](_autosummary/artful.html.md#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                                                    |
+| [`new_shot_id`](_autosummary/artful.html.md#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                                         |
+| [`panel_intervals_from_panels`](_autosummary/artful.html.md#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](_autosummary/artful.html.md#artful.save_storyboard).                        |
+| [`save_shot_schedule`](_autosummary/artful.html.md#artful.save_shot_schedule)(schedule, store, \*, asset_id)  | Persist `schedule` into `store` as one timeless annotation.                                                                                |
+| [`save_storyboard`](_autosummary/artful.html.md#artful.save_storyboard)(storyboard, store, \*, ...[, ...]) | Persist `storyboard` into `store`.                                                                                                         |
+| [`to_html`](_autosummary/artful.html.md#artful.to_html)(storyboard[, panel_intervals])             | Render a self-contained HTML contact sheet.                                                                                                |
+| [`to_markdown`](_autosummary/artful.html.md#artful.to_markdown)(storyboard[, panel_intervals])         | Render `storyboard` as Markdown.                                                                                                           |
 
 ### Classes
 
@@ -558,13 +558,16 @@ no entry in the intervals dict (caller can pin them later).
 
 ### artful.is_valid_panel_id(value)
 
-Whether `value` is a panel id every panel route can carry.
+Whether `value` is a panel id every panel route can carry: the
+federation’s one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165).
 
 ```pycon
 >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
 (True, True, True)
 >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
 (False, False, False, False)
+>>> is_valid_panel_id("p1\n")  # a trailing newline is not a path segment
+False
 ```
 
 * **Return type:**
@@ -749,10 +752,10 @@ plan that drives the renderer. Use cases:
 
 ### Functions
 
-| [`check_panel_id`](_autosummary/artful.schema.html.md#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.   |
-|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| [`is_valid_panel_id`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry.                                                            |
-| [`new_panel_id`](_autosummary/artful.schema.html.md#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                    |
+| [`check_panel_id`](_autosummary/artful.schema.html.md#artful.schema.check_panel_id)(value)    | `value` if [`is_valid_panel_id()`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id), else `ValueError` naming the rule.                        |
+|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| [`is_valid_panel_id`](_autosummary/artful.schema.html.md#artful.schema.is_valid_panel_id)(value) | Whether `value` is a panel id every panel route can carry: the federation's one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165). |
+| [`new_panel_id`](_autosummary/artful.schema.html.md#artful.schema.new_panel_id)([prefix])   | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                                         |
 
 ### Classes
 
@@ -916,13 +919,16 @@ Return the panel with `panel_id`, or `None` if there is none.
 
 ### artful.schema.is_valid_panel_id(value)
 
-Whether `value` is a panel id every panel route can carry.
+Whether `value` is a panel id every panel route can carry: the
+federation’s one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165).
 
 ```pycon
 >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
 (True, True, True)
 >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
 (False, False, False, False)
+>>> is_valid_panel_id("p1\n")  # a trailing newline is not a path segment
+False
 ```
 
 * **Return type:**
@@ -1245,16 +1251,18 @@ Persist `storyboard` into `store`.
 
 # About this build
 
-This documentation was built on **2026-11-22 22:23 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/5035f0ed1f8c68ce41b041465b7f405392a4c680"><code>5035f0e</code></a> on branch <code>main</code>, for **artful 0.0.20** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-23 04:58 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7"><code>daf15a6</code></a> on branch <code>main</code>, for **artful 0.0.20** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.0.20) is behind the latest release on PyPI (0.0.21): `pip install artful` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/5035f0ed1f8c68ce41b041465b7f405392a4c680"><code>5035f0ed1f8c68ce41b041465b7f405392a4c680</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7"><code>daf15a686eb872cf8df36ae93403b5248888b8c7</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -1265,9 +1273,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45077356102">45077356102</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45114804651">45114804651</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>5035f0ed1f8c68ce41b041465b7f405392a4c680</code> (in the history of the built commit) |
+| Event commit | <code>daf15a686eb872cf8df36ae93403b5248888b8c7</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -1292,13 +1300,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.20/">0.0.20</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/artful/0.0.21/">0.0.21</a>, newer than the documented version (0.0.20).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout 5035f0ed1f8c68ce41b041465b7f405392a4c680
+git checkout daf15a686eb872cf8df36ae93403b5248888b8c7
 pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

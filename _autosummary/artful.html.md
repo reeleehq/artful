@@ -32,21 +32,21 @@ Public surface:
 
 ### Functions
 
-| [`from_markdown`](#artful.from_markdown)(text)                                | Parse [`to_markdown()`](#artful.to_markdown)'s output back into a Storyboard + intervals.   |
-|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| [`load_shot_schedule`](#artful.load_shot_schedule)(store, \*, asset_id[, ...])     | One schedule, or None when there is no match.                                                                       |
-| [`load_shot_schedules`](#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                  |
-| [`load_storyboard`](#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](#artful.Storyboard).             |
-| [`new_panel_id`](#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                  |
-| [`is_valid_panel_id`](#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry.                                                          |
-| [`check_panel_id`](#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](#artful.is_valid_panel_id), else `ValueError` naming the rule. |
-| [`new_schedule_id`](#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                             |
-| [`new_shot_id`](#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                  |
-| [`panel_intervals_from_panels`](#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](#artful.save_storyboard). |
-| [`save_shot_schedule`](#artful.save_shot_schedule)(schedule, store, \*, asset_id)  | Persist `schedule` into `store` as one timeless annotation.                                                         |
-| [`save_storyboard`](#artful.save_storyboard)(storyboard, store, \*, ...[, ...]) | Persist `storyboard` into `store`.                                                                                  |
-| [`to_html`](#artful.to_html)(storyboard[, panel_intervals])             | Render a self-contained HTML contact sheet.                                                                         |
-| [`to_markdown`](#artful.to_markdown)(storyboard[, panel_intervals])         | Render `storyboard` as Markdown.                                                                                    |
+| [`from_markdown`](#artful.from_markdown)(text)                                | Parse [`to_markdown()`](#artful.to_markdown)'s output back into a Storyboard + intervals.                          |
+|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| [`load_shot_schedule`](#artful.load_shot_schedule)(store, \*, asset_id[, ...])     | One schedule, or None when there is no match.                                                                                              |
+| [`load_shot_schedules`](#artful.load_shot_schedules)(store, \*, asset_id[, tier])   | Every schedule in `store` for `asset_id` / `tier`, in store order.                                                                         |
+| [`load_storyboard`](#artful.load_storyboard)(store, \*, asset_id[, tier])       | Read panels from `store` and reconstruct a [`Storyboard`](#artful.Storyboard).                                    |
+| [`new_panel_id`](#artful.new_panel_id)([prefix])                             | Generate a fresh short panel id (e.g. `"p3f7c1"`).                                                                                         |
+| [`is_valid_panel_id`](#artful.is_valid_panel_id)(value)                           | Whether `value` is a panel id every panel route can carry: the federation's one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165). |
+| [`check_panel_id`](#artful.check_panel_id)(value)                              | `value` if [`is_valid_panel_id()`](#artful.is_valid_panel_id), else `ValueError` naming the rule.                        |
+| [`new_schedule_id`](#artful.new_schedule_id)([prefix])                          | Generate a fresh short schedule id (e.g. `"sch3f7c1"`).                                                                                    |
+| [`new_shot_id`](#artful.new_shot_id)([prefix])                              | Generate a fresh short shot id (e.g. `"sh3f7c1"`).                                                                                         |
+| [`panel_intervals_from_panels`](#artful.panel_intervals_from_panels)(panels)                | Convenience: build the panel_intervals dict for [`save_storyboard()`](#artful.save_storyboard).                        |
+| [`save_shot_schedule`](#artful.save_shot_schedule)(schedule, store, \*, asset_id)  | Persist `schedule` into `store` as one timeless annotation.                                                                                |
+| [`save_storyboard`](#artful.save_storyboard)(storyboard, store, \*, ...[, ...]) | Persist `storyboard` into `store`.                                                                                                         |
+| [`to_html`](#artful.to_html)(storyboard[, panel_intervals])             | Render a self-contained HTML contact sheet.                                                                                                |
+| [`to_markdown`](#artful.to_markdown)(storyboard[, panel_intervals])         | Render `storyboard` as Markdown.                                                                                                           |
 
 ### Classes
 
@@ -216,13 +216,16 @@ no entry in the intervals dict (caller can pin them later).
 
 ### artful.is_valid_panel_id(value)
 
-Whether `value` is a panel id every panel route can carry.
+Whether `value` is a panel id every panel route can carry: the
+federation’s one id-slug rule (`lacing.is_id_slug()`, reeleehq/lacing#165).
 
 ```pycon
 >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
 (True, True, True)
 >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
 (False, False, False, False)
+>>> is_valid_panel_id("p1\n")  # a trailing newline is not a path segment
+False
 ```
 
 * **Return type:**
