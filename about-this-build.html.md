@@ -2,18 +2,16 @@
 
 # About this build
 
-This documentation was built on **2026-11-23 04:58 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7"><code>daf15a6</code></a> on branch <code>main</code>, for **artful 0.0.20** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-11-23 06:20 UTC** from commit <a href="https://github.com/reeleehq/artful/commit/6556248d3dd661594b7860b3e1a14502a2939bcd"><code>6556248</code></a> on branch <code>main</code>, for **artful 0.0.21** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.0.20) is behind the latest release on PyPI (0.0.21): `pip install artful` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
 |                     |                                                                                                                                                        |
 |---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7"><code>daf15a686eb872cf8df36ae93403b5248888b8c7</code></a> |
+| Commit              | <a href="https://github.com/reeleehq/artful/commit/6556248d3dd661594b7860b3e1a14502a2939bcd"><code>6556248d3dd661594b7860b3e1a14502a2939bcd</code></a> |
 | Branch              | <code>main</code>                                                                                                                                      |
 | Tags at this commit | none                                                                                                                                                   |
 | Working tree        | clean                                                                                                                                                  |
@@ -24,9 +22,9 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>reeleehq/artful</code>                                                               |
-| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45114804651">45114804651</a>      |
+| Run          | <a href="https://github.com/reeleehq/artful/actions/runs/45123255489">45123255489</a>      |
 | Ref          | <code>refs/heads/main</code>                                                               |
-| Event commit | <code>daf15a686eb872cf8df36ae93403b5248888b8c7</code> (in the history of the built commit) |
+| Event commit | <code>6556248d3dd661594b7860b3e1a14502a2939bcd</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -51,13 +49,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/artful/0.0.21/">0.0.21</a>, newer than the documented version (0.0.20).
+Latest release: <a href="https://pypi.org/project/artful/0.0.21/">0.0.21</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/reeleehq/artful && cd artful
-git checkout daf15a686eb872cf8df36ae93403b5248888b8c7
+git checkout 6556248d3dd661594b7860b3e1a14502a2939bcd
 pip install "epythet==0.2.23"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

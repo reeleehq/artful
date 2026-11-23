@@ -4,18 +4,9 @@
 
 Storyboard data model and exporters — lacing-native panels along a timeline.
 
-A *storyboard* is a sequence of *panels* along a timeline (a song, a video, a
-podcast clip). Each panel pins an interval of the master asset, optionally
-points at a project shot, and carries one or more images plus directorial
-annotations (caption, framing, camera, transition, notes). Panels are
-persisted as [lacing](https://github.com/thorwhalen/lacing) annotations, so a
-storyboard is queryable, exportable, and round-trippable through every
-adapter lacing already supports (TextGrid, EAF, JAMS, OTIO, WebVTT, Web
-Annotation, …) without artful having to reinvent any of it.
+A *storyboard* is a sequence of *panels* along a timeline (a song, a video, a podcast clip). Each panel pins an interval of the master asset, optionally points at a project shot, and carries one or more images plus directorial annotations (caption, framing, camera, transition, notes). Panels are persisted as [lacing](https://github.com/thorwhalen/lacing) annotations, so a storyboard is queryable, exportable, and round-trippable through every adapter lacing already supports (TextGrid, EAF, JAMS, OTIO, WebVTT, Web Annotation, …) without artful having to reinvent any of it.
 
-artful is **not** the renderer. It’s the panels-along-a-timeline plan that
-drives a renderer: an LLM authors panels from a script, a human reviews the
-contact sheet, the same panel data feeds downstream image / video generation.
+artful is **not** the renderer. It’s the panels-along-a-timeline plan that drives a renderer: an LLM authors panels from a script, a human reviews the contact sheet, the same panel data feeds downstream image / video generation.
 
 ## Install
 
@@ -73,19 +64,19 @@ save_storyboard(sb, store, panel_intervals=intervals)
 loaded = load_storyboard(store, asset_id="song-asset-id-abc")
 ```
 
-The store can be any `lacing.IntervalAnnotationStore` (`MemoryStore`,
-`SQLiteStore`, `PostgresStore`, …); the persistence layer is lacing’s.
+The store can be any `lacing.IntervalAnnotationStore` (`MemoryStore`, `SQLiteStore`, `PostgresStore`, …); the persistence layer is lacing’s.
 
 ## Authoring with LLMs (Markdown)
 
-Markdown is artful’s canonical “give an LLM a storyboard to read or write”
-format. It round-trips losslessly through `to_markdown` / `from_markdown`.
+Markdown is artful’s canonical “give an LLM a storyboard to read or write” format. It round-trips losslessly through `to_markdown` / `from_markdown`.
 
 ```python
 from artful import to_markdown, from_markdown
 
 md = to_markdown(loaded, intervals)
-# Show `md` to an LLM, let it edit panels, then…
+# Show `md` to an LLM, let it edit panels, then parse its reply
+# (here we parse `md` back unchanged):
+edited_md = md
 edited_sb, edited_intervals = from_markdown(edited_md)
 save_storyboard(edited_sb, store, panel_intervals=edited_intervals)
 ```
@@ -124,9 +115,7 @@ with open("storyboard.html", "w") as f:
     f.write(to_html(loaded, intervals))
 ```
 
-`to_html` produces a self-contained HTML page with embedded styles and
-`<img>` tags pointing at each panel’s `path` / `url`. Open it in a browser
-to review.
+`to_html` produces a self-contained HTML page with embedded styles and `<img>` tags pointing at each panel’s `path` / `url`. Open it in a browser to review.
 
 ## Data model
 
@@ -136,37 +125,22 @@ to review.
 | `PanelBody`  | One panel: `panel_id`, optional `shot_id`, images, caption, framing, camera, `transition_in`, notes. The interval lives on the lacing annotation’s reference, not in the body.                                     |
 | `PanelImage` | One image for a panel — `artifact_id` (sha-256 lacing artifact ref), `url`, or `path`, plus a `role` — a free string, by convention `thumbnail` / `seed` / `reference` / `alternate`, not validated — and caption. |
 
-All three forbid unknown fields (`extra="forbid"`); the two *body* models —
-`PanelBody` and `PanelImage` — are also frozen, so build new versions with
-`model_copy(update={...})`. Importing
-`artful` registers `PanelBody` against lacing under the body-schema URI
-`annot://schema/storyboard-panel/v1`, so `lacing.validate_body(...)` works
-out of the box.
+All three forbid unknown fields (`extra="forbid"`); the two *body* models — `PanelBody` and `PanelImage` — are also frozen, so build new versions with `model_copy(update={...})`. Importing `artful` registers `PanelBody` against lacing under the body-schema URI `annot://schema/storyboard-panel/v1`, so `lacing.validate_body(...)` works out of the box.
 
 ## Why lacing-native?
 
-Storyboards are an annotation problem: panels are intervals on a timeline
-with structured bodies. Rather than invent a new persistence layer, artful
-encodes each panel as a `lacing.Annotation` whose `body_schema_uri` is the
-panel schema. The benefits:
+Storyboards are an annotation problem: panels are intervals on a timeline with structured bodies. Rather than invent a new persistence layer, artful encodes each panel as a `lacing.Annotation` whose `body_schema_uri` is the panel schema. The benefits:
 
 - **Allen interval algebra** for free: overlaps, gaps, adjacencies.
-- **Multiple storyboards over the same asset** stay separate via the
-  `tier` field on each annotation.
+- **Multiple storyboards over the same asset** stay separate via the `tier` field on each annotation.
 - **Provenance tracked across edits** through lacing’s `Provenance` model.
-- **Format adapters** — read or write panels as TextGrid tiers, JAMS
-  annotations, OTIO clips, Web Annotation JSON-LD, etc., via lacing.
+- **Format adapters** — read or write panels as TextGrid tiers, JAMS annotations, OTIO clips, Web Annotation JSON-LD, etc., via lacing.
 
-A small `StoryboardMetaBody` schema (URI
-`annot://schema/storyboard-meta/v1`) carries title / style / aspect as a
-single timeless annotation alongside the panels.
+A small `StoryboardMetaBody` schema (URI `annot://schema/storyboard-meta/v1`) carries title / style / aspect as a single timeless annotation alongside the panels.
 
 ## The shot schedule
 
-Before there are panels there is a **shot schedule**: an ordered list of
-shots, each carrying the constraints a downstream planner must respect, and
-the advisory *risk flags* raised when those constraints collide with the
-chosen video model’s real limits.
+Before there are panels there is a **shot schedule**: an ordered list of shots, each carrying the constraints a downstream planner must respect, and the advisory *risk flags* raised when those constraints collide with the chosen video model’s real limits.
 
 ```python
 from artful import (
@@ -223,15 +197,9 @@ Three sources of truth, deliberately kept apart:
 | What a **shot** requires (`max_duration_seconds`, `max_characters_in_frame`, `aspect`, `resolution`, `take_budget`) | `ShotEntry`.                                                                                                                             |
 | What happens when the two **collide**                                                                               | `RiskFlag` — a cached verdict, stamped with `advised_for_model_id` so a model change makes it visibly stale via `schedule.needs_advice`. |
 
-Ordering is the tuple order of `shots` — there is deliberately no `order`
-field to disagree with it, and no `character_count` field to drift from
-`len(characters)`. Constraint defaults encode the safe choice:
-`allow_last_frame_anchor` is `False`, because anchoring both a first and a
-last frame contorts the subject mid-clip.
+Ordering is the tuple order of `shots` — there is deliberately no `order` field to disagree with it, and no `character_count` field to drift from `len(characters)`. Constraint defaults encode the safe choice: `allow_last_frame_anchor` is `False`, because anchoring both a first and a last frame contorts the subject mid-clip.
 
-The schedule persists as a **single** timeless annotation under
-`annot://schema/shot-schedule/v1` — a schedule exists *before* times are
-pinned, which is exactly what `duration_seconds_estimate` is for.
+The schedule persists as a **single** timeless annotation under `annot://schema/shot-schedule/v1` — a schedule exists *before* times are pinned, which is exactly what `duration_seconds_estimate` is for.
 
 ## API surface
 

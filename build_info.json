@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-11-23T04:58:25Z",
+  "built_at": "2026-11-23T06:20:40Z",
   "package": {
     "name": "artful",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "display_name": "artful",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "daf15a686eb872cf8df36ae93403b5248888b8c7",
-    "short_commit": "daf15a6",
+    "commit": "6556248d3dd661594b7860b3e1a14502a2939bcd",
+    "short_commit": "6556248",
     "branch": "main",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/reeleehq/artful",
-    "commit_url": "https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7",
+    "commit_url": "https://github.com/reeleehq/artful/commit/6556248d3dd661594b7860b3e1a14502a2939bcd",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "reeleehq/artful",
-    "sha": "daf15a686eb872cf8df36ae93403b5248888b8c7",
+    "sha": "6556248d3dd661594b7860b3e1a14502a2939bcd",
     "sha_in_history": true,
     "ref": "refs/heads/main",
     "ref_name": "main",
-    "run_id": "45114804651",
-    "run_url": "https://github.com/reeleehq/artful/actions/runs/45114804651",
+    "run_id": "45123255489",
+    "run_url": "https://github.com/reeleehq/artful/actions/runs/45123255489",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.0.21",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout daf15a686eb872cf8df36ae93403b5248888b8c7\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/reeleehq/artful && cd artful\ngit checkout 6556248d3dd661594b7860b3e1a14502a2939bcd\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.0.20) is behind the latest release on PyPI (0.0.21): `pip install artful` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }

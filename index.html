@@ -256,17 +256,8 @@
 <section id="artful">
 <h1>artful<a class="headerlink" href="#artful" title="Link to this heading">¶</a></h1>
 <p>Storyboard data model and exporters — lacing-native panels along a timeline.</p>
-<p>A <em>storyboard</em> is a sequence of <em>panels</em> along a timeline (a song, a video, a
-podcast clip). Each panel pins an interval of the master asset, optionally
-points at a project shot, and carries one or more images plus directorial
-annotations (caption, framing, camera, transition, notes). Panels are
-persisted as <a class="reference external" href="https://github.com/thorwhalen/lacing">lacing</a> annotations, so a
-storyboard is queryable, exportable, and round-trippable through every
-adapter lacing already supports (TextGrid, EAF, JAMS, OTIO, WebVTT, Web
-Annotation, …) without artful having to reinvent any of it.</p>
-<p>artful is <strong>not</strong> the renderer. It’s the panels-along-a-timeline plan that
-drives a renderer: an LLM authors panels from a script, a human reviews the
-contact sheet, the same panel data feeds downstream image / video generation.</p>
+<p>A <em>storyboard</em> is a sequence of <em>panels</em> along a timeline (a song, a video, a podcast clip). Each panel pins an interval of the master asset, optionally points at a project shot, and carries one or more images plus directorial annotations (caption, framing, camera, transition, notes). Panels are persisted as <a class="reference external" href="https://github.com/thorwhalen/lacing">lacing</a> annotations, so a storyboard is queryable, exportable, and round-trippable through every adapter lacing already supports (TextGrid, EAF, JAMS, OTIO, WebVTT, Web Annotation, …) without artful having to reinvent any of it.</p>
+<p>artful is <strong>not</strong> the renderer. It’s the panels-along-a-timeline plan that drives a renderer: an LLM authors panels from a script, a human reviews the contact sheet, the same panel data feeds downstream image / video generation.</p>
 <section id="install">
 <h2>Install<a class="headerlink" href="#install" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>artful
@@ -321,17 +312,17 @@ contact sheet, the same panel data feeds downstream image / video generation.</p
 <span class="n">loaded</span> <span class="o">=</span> <span class="n">load_storyboard</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">asset_id</span><span class="o">=</span><span class="s2">"song-asset-id-abc"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The store can be any <code class="docutils literal notranslate"><span class="pre">lacing.IntervalAnnotationStore</span></code> (<code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code>,
-<code class="docutils literal notranslate"><span class="pre">SQLiteStore</span></code>, <code class="docutils literal notranslate"><span class="pre">PostgresStore</span></code>, …); the persistence layer is lacing’s.</p>
+<p>The store can be any <code class="docutils literal notranslate"><span class="pre">lacing.IntervalAnnotationStore</span></code> (<code class="docutils literal notranslate"><span class="pre">MemoryStore</span></code>, <code class="docutils literal notranslate"><span class="pre">SQLiteStore</span></code>, <code class="docutils literal notranslate"><span class="pre">PostgresStore</span></code>, …); the persistence layer is lacing’s.</p>
 </section>
 <section id="authoring-with-llms-markdown">
 <h2>Authoring with LLMs (Markdown)<a class="headerlink" href="#authoring-with-llms-markdown" title="Link to this heading">¶</a></h2>
-<p>Markdown is artful’s canonical “give an LLM a storyboard to read or write”
-format. It round-trips losslessly through <code class="docutils literal notranslate"><span class="pre">to_markdown</span></code> / <code class="docutils literal notranslate"><span class="pre">from_markdown</span></code>.</p>
+<p>Markdown is artful’s canonical “give an LLM a storyboard to read or write” format. It round-trips losslessly through <code class="docutils literal notranslate"><span class="pre">to_markdown</span></code> / <code class="docutils literal notranslate"><span class="pre">from_markdown</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">artful</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_markdown</span><span class="p">,</span> <span class="n">from_markdown</span>
 
 <span class="n">md</span> <span class="o">=</span> <span class="n">to_markdown</span><span class="p">(</span><span class="n">loaded</span><span class="p">,</span> <span class="n">intervals</span><span class="p">)</span>
-<span class="c1"># Show `md` to an LLM, let it edit panels, then…</span>
+<span class="c1"># Show `md` to an LLM, let it edit panels, then parse its reply</span>
+<span class="c1"># (here we parse `md` back unchanged):</span>
+<span class="n">edited_md</span> <span class="o">=</span> <span class="n">md</span>
 <span class="n">edited_sb</span><span class="p">,</span> <span class="n">edited_intervals</span> <span class="o">=</span> <span class="n">from_markdown</span><span class="p">(</span><span class="n">edited_md</span><span class="p">)</span>
 <span class="n">save_storyboard</span><span class="p">(</span><span class="n">edited_sb</span><span class="p">,</span> <span class="n">store</span><span class="p">,</span> <span class="n">panel_intervals</span><span class="o">=</span><span class="n">edited_intervals</span><span class="p">)</span>
 </pre></div>
@@ -368,9 +359,7 @@ Bells over winter sky
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">to_html</span><span class="p">(</span><span class="n">loaded</span><span class="p">,</span> <span class="n">intervals</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">to_html</span></code> produces a self-contained HTML page with embedded styles and
-<code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tags pointing at each panel’s <code class="docutils literal notranslate"><span class="pre">path</span></code> / <code class="docutils literal notranslate"><span class="pre">url</span></code>. Open it in a browser
-to review.</p>
+<p><code class="docutils literal notranslate"><span class="pre">to_html</span></code> produces a self-contained HTML page with embedded styles and <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code> tags pointing at each panel’s <code class="docutils literal notranslate"><span class="pre">path</span></code> / <code class="docutils literal notranslate"><span class="pre">url</span></code>. Open it in a browser to review.</p>
 </section>
 <section id="data-model">
 <h2>Data model<a class="headerlink" href="#data-model" title="Link to this heading">¶</a></h2>
@@ -394,37 +383,22 @@ to review.</p>
 </tbody>
 </table>
 </div>
-<p>All three forbid unknown fields (<code class="docutils literal notranslate"><span class="pre">extra=&quot;forbid&quot;</span></code>); the two <em>body</em> models —
-<code class="docutils literal notranslate"><span class="pre">PanelBody</span></code> and <code class="docutils literal notranslate"><span class="pre">PanelImage</span></code> — are also frozen, so build new versions with
-<code class="docutils literal notranslate"><span class="pre">model_copy(update={...})</span></code>. Importing
-<code class="docutils literal notranslate"><span class="pre">artful</span></code> registers <code class="docutils literal notranslate"><span class="pre">PanelBody</span></code> against lacing under the body-schema URI
-<code class="docutils literal notranslate"><span class="pre">annot://schema/storyboard-panel/v1</span></code>, so <code class="docutils literal notranslate"><span class="pre">lacing.validate_body(...)</span></code> works
-out of the box.</p>
+<p>All three forbid unknown fields (<code class="docutils literal notranslate"><span class="pre">extra=&quot;forbid&quot;</span></code>); the two <em>body</em> models — <code class="docutils literal notranslate"><span class="pre">PanelBody</span></code> and <code class="docutils literal notranslate"><span class="pre">PanelImage</span></code> — are also frozen, so build new versions with <code class="docutils literal notranslate"><span class="pre">model_copy(update={...})</span></code>. Importing <code class="docutils literal notranslate"><span class="pre">artful</span></code> registers <code class="docutils literal notranslate"><span class="pre">PanelBody</span></code> against lacing under the body-schema URI <code class="docutils literal notranslate"><span class="pre">annot://schema/storyboard-panel/v1</span></code>, so <code class="docutils literal notranslate"><span class="pre">lacing.validate_body(...)</span></code> works out of the box.</p>
 </section>
 <section id="why-lacing-native">
 <h2>Why lacing-native?<a class="headerlink" href="#why-lacing-native" title="Link to this heading">¶</a></h2>
-<p>Storyboards are an annotation problem: panels are intervals on a timeline
-with structured bodies. Rather than invent a new persistence layer, artful
-encodes each panel as a <code class="docutils literal notranslate"><span class="pre">lacing.Annotation</span></code> whose <code class="docutils literal notranslate"><span class="pre">body_schema_uri</span></code> is the
-panel schema. The benefits:</p>
+<p>Storyboards are an annotation problem: panels are intervals on a timeline with structured bodies. Rather than invent a new persistence layer, artful encodes each panel as a <code class="docutils literal notranslate"><span class="pre">lacing.Annotation</span></code> whose <code class="docutils literal notranslate"><span class="pre">body_schema_uri</span></code> is the panel schema. The benefits:</p>
 <ul class="simple">
 <li><p><strong>Allen interval algebra</strong> for free: overlaps, gaps, adjacencies.</p></li>
-<li><p><strong>Multiple storyboards over the same asset</strong> stay separate via the
-<code class="docutils literal notranslate"><span class="pre">tier</span></code> field on each annotation.</p></li>
+<li><p><strong>Multiple storyboards over the same asset</strong> stay separate via the <code class="docutils literal notranslate"><span class="pre">tier</span></code> field on each annotation.</p></li>
 <li><p><strong>Provenance tracked across edits</strong> through lacing’s <code class="docutils literal notranslate"><span class="pre">Provenance</span></code> model.</p></li>
-<li><p><strong>Format adapters</strong> — read or write panels as TextGrid tiers, JAMS
-annotations, OTIO clips, Web Annotation JSON-LD, etc., via lacing.</p></li>
+<li><p><strong>Format adapters</strong> — read or write panels as TextGrid tiers, JAMS annotations, OTIO clips, Web Annotation JSON-LD, etc., via lacing.</p></li>
 </ul>
-<p>A small <code class="docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code> schema (URI
-<code class="docutils literal notranslate"><span class="pre">annot://schema/storyboard-meta/v1</span></code>) carries title / style / aspect as a
-single timeless annotation alongside the panels.</p>
+<p>A small <code class="docutils literal notranslate"><span class="pre">StoryboardMetaBody</span></code> schema (URI <code class="docutils literal notranslate"><span class="pre">annot://schema/storyboard-meta/v1</span></code>) carries title / style / aspect as a single timeless annotation alongside the panels.</p>
 </section>
 <section id="the-shot-schedule">
 <h2>The shot schedule<a class="headerlink" href="#the-shot-schedule" title="Link to this heading">¶</a></h2>
-<p>Before there are panels there is a <strong>shot schedule</strong>: an ordered list of
-shots, each carrying the constraints a downstream planner must respect, and
-the advisory <em>risk flags</em> raised when those constraints collide with the
-chosen video model’s real limits.</p>
+<p>Before there are panels there is a <strong>shot schedule</strong>: an ordered list of shots, each carrying the constraints a downstream planner must respect, and the advisory <em>risk flags</em> raised when those constraints collide with the chosen video model’s real limits.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">artful</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">RiskFlag</span><span class="p">,</span>
     <span class="n">ShotEntry</span><span class="p">,</span>
@@ -492,14 +466,8 @@ chosen video model’s real limits.</p>
 </tbody>
 </table>
 </div>
-<p>Ordering is the tuple order of <code class="docutils literal notranslate"><span class="pre">shots</span></code> — there is deliberately no <code class="docutils literal notranslate"><span class="pre">order</span></code>
-field to disagree with it, and no <code class="docutils literal notranslate"><span class="pre">character_count</span></code> field to drift from
-<code class="docutils literal notranslate"><span class="pre">len(characters)</span></code>. Constraint defaults encode the safe choice:
-<code class="docutils literal notranslate"><span class="pre">allow_last_frame_anchor</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, because anchoring both a first and a
-last frame contorts the subject mid-clip.</p>
-<p>The schedule persists as a <strong>single</strong> timeless annotation under
-<code class="docutils literal notranslate"><span class="pre">annot://schema/shot-schedule/v1</span></code> — a schedule exists <em>before</em> times are
-pinned, which is exactly what <code class="docutils literal notranslate"><span class="pre">duration_seconds_estimate</span></code> is for.</p>
+<p>Ordering is the tuple order of <code class="docutils literal notranslate"><span class="pre">shots</span></code> — there is deliberately no <code class="docutils literal notranslate"><span class="pre">order</span></code> field to disagree with it, and no <code class="docutils literal notranslate"><span class="pre">character_count</span></code> field to drift from <code class="docutils literal notranslate"><span class="pre">len(characters)</span></code>. Constraint defaults encode the safe choice: <code class="docutils literal notranslate"><span class="pre">allow_last_frame_anchor</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, because anchoring both a first and a last frame contorts the subject mid-clip.</p>
+<p>The schedule persists as a <strong>single</strong> timeless annotation under <code class="docutils literal notranslate"><span class="pre">annot://schema/shot-schedule/v1</span></code> — a schedule exists <em>before</em> times are pinned, which is exactly what <code class="docutils literal notranslate"><span class="pre">duration_seconds_estimate</span></code> is for.</p>
 </section>
 <section id="api-surface">
 <h2>API surface<a class="headerlink" href="#api-surface" title="Link to this heading">¶</a></h2>
@@ -546,7 +514,7 @@ pinned, which is exactly what <code class="docutils literal notranslate"><span c
 </section>
 </section>
 
-<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-11-23 04:58 UTC from <a href="https://github.com/reeleehq/artful/commit/daf15a686eb872cf8df36ae93403b5248888b8c7">daf15a6</a> (main) · artful 0.0.20 · <a href="about-this-build.html">about this build</a></p>
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-11-23 06:20 UTC from <a href="https://github.com/reeleehq/artful/commit/6556248d3dd661594b7860b3e1a14502a2939bcd">6556248</a> (main) · artful 0.0.21 · <a href="about-this-build.html">about this build</a></p>
         </article>
       </div>
       <footer>
@@ -609,7 +577,7 @@ pinned, which is exactly what <code class="docutils literal notranslate"><span c
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=7c40b9fe"></script>
+</div><script src="_static/documentation_options.js?v=d500cd98"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
