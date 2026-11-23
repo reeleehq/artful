@@ -36,6 +36,12 @@ from typing import Annotated, Literal, Optional, TypeVar
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator
 
 from lacing import Derived, Location, register_body_schema
+from lacing.id_slug import (
+    ID_SLUG_PATTERN,
+    MAX_ID_SLUG_LENGTH,
+    check_id_slug,
+    is_id_slug,
+)
 
 
 ReviewStatus = Literal[
@@ -186,9 +192,8 @@ class PanelImage(BaseModel):
 #: excludes ``/`` (``%2F`` is decoded before routing), and the ``.`` / ``..``
 #: segments clients collapse (reeleehq/reelee#930). Minted ids
 #: (:func:`new_panel_id`) satisfy it.
-PANEL_ID_PATTERN = r"[A-Za-z0-9][A-Za-z0-9._-]*"
-MAX_PANEL_ID_LENGTH = 255
-_PANEL_ID_RE = _re.compile(PANEL_ID_PATTERN)
+PANEL_ID_PATTERN = ID_SLUG_PATTERN
+MAX_PANEL_ID_LENGTH = MAX_ID_SLUG_LENGTH
 
 _STORED_PANEL_KEY = "artful.stored_panel"
 
@@ -201,29 +206,22 @@ STORED_PANEL = _MappingProxyType({_STORED_PANEL_KEY: True})
 
 
 def is_valid_panel_id(value) -> bool:
-    """Whether ``value`` is a panel id every panel route can carry.
+    """Whether ``value`` is a panel id every panel route can carry: the
+    federation's one id-slug rule (:func:`lacing.is_id_slug`, reeleehq/lacing#165).
 
     >>> is_valid_panel_id("p3f7c1"), is_valid_panel_id("p07-copy"), is_valid_panel_id("1.a_b")
     (True, True, True)
     >>> is_valid_panel_id("x/y"), is_valid_panel_id(".."), is_valid_panel_id(""), is_valid_panel_id(None)
     (False, False, False, False)
+    >>> is_valid_panel_id("p1\\n")  # a trailing newline is not a path segment
+    False
     """
-    return (
-        isinstance(value, str)
-        and len(value) <= MAX_PANEL_ID_LENGTH
-        and _PANEL_ID_RE.fullmatch(value) is not None
-    )
+    return is_id_slug(value)
 
 
 def check_panel_id(value: str) -> str:
     """``value`` if :func:`is_valid_panel_id`, else ``ValueError`` naming the rule."""
-    if not is_valid_panel_id(value):
-        raise ValueError(
-            f"panel id {value!r} refused: a panel id uses ASCII letters, digits and "
-            f"'._-', starts with a letter or digit, and is at most "
-            f"{MAX_PANEL_ID_LENGTH} characters"
-        )
-    return value
+    return check_id_slug(value, label="panel id", reason="it is a URL path segment")
 
 
 class PanelBody(BaseModel):
